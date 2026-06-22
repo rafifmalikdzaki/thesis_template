@@ -2,6 +2,38 @@
 
 Clean template for Indonesian university theses.
 
+## Preview
+
+> Add a compiled screenshot here: compile `main.tex`, export page 1 as PNG, save as `assets/preview.png`, then replace this block with `![preview](assets/preview.png)`.
+
+```
+┌─────────────────────────────────────────────┐
+│  ← 4 cm →│                      │← 3 cm →  │
+│           │                      │           │
+│           │   BAB 1 PENDAHULUAN  │  ← chapter heading:
+│           │   (centered, bold)   │     all-caps, one line
+│           │                      │
+│           │   1.1 Latar Belakang │  ← section: bold, left
+│           │                      │
+│           │     Lorem ipsum      │  ← paragraph: 1.27 cm
+│           │   dolor sit amet,    │    first-line indent,
+│           │   consectetur...     │    1.5 line spacing,
+│           │                      │    justified
+│           │   Tabel 1.1 Judul    │  ← table caption: above,
+│           │  ┌──────┬──────────┐ │    bold, centered
+│           │  │ Kol1 │  Kol 2   │ │  ← full-border table
+│           │  ├──────┼──────────┤ │
+│           │  │ data │  data    │ │
+│           │  └──────┴──────────┘ │
+│           │                      │
+│           │   [figure/diagram]   │
+│           │  Gambar 1.1 Judul    │  ← figure caption: below,
+│           │  (centered, bold)    │    bold, centered
+│           │                      │
+│           │          1           │  ← page number
+└─────────────────────────────────────────────┘
+```
+
 ## Structure
 
 ```
