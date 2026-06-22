@@ -1,0 +1,100 @@
+% =====================================================================
+%  BAB 4 — PERANCANGAN SISTEM
+% =====================================================================
+
+\chapter{Perancangan Sistem}
+
+\section{Gambaran Umum Sistem}
+\label{sec:4.1}
+
+[Berikan gambaran arsitektur sistem secara keseluruhan. Jelaskan komponen-komponen utama,
+bagaimana komponen-komponen tersebut berinteraksi, dan bagaimana sistem secara keseluruhan
+menjawab rumusan masalah yang ditetapkan.]
+
+\begin{figure}[H]
+  \centering
+  \gambarbesar{%
+    \begin{tikzpicture}[node distance=1.5cm and 2cm]
+      % ── Ganti dengan diagram arsitektur Anda ─────────────────────
+      \node[procplain, fill=cProsesBg, draw=cProses, text width=3cm]
+        (komp1) {Komponen 1};
+      \node[procplain, fill=cDataBg, draw=cData, text width=3cm,
+            right=of komp1]
+        (komp2) {Komponen 2};
+      \node[procplain, fill=cOkBg, draw=cOk, text width=3cm,
+            right=of komp2]
+        (komp3) {Komponen 3};
+
+      \draw[arr] (komp1) -- node[above,font=\scriptsize]{Data} (komp2);
+      \draw[arr] (komp2) -- node[above,font=\scriptsize]{Hasil} (komp3);
+    \end{tikzpicture}
+  }
+  \caption{Arsitektur sistem secara keseluruhan}
+  \label{fig:4.arsitektur}
+\end{figure}
+
+[Deskripsi singkat setiap komponen: peran, input, output.]
+
+\section{Perancangan [Komponen 1]}
+\label{sec:4.2}
+
+[Deskripsikan desain komponen pertama secara rinci. Jelaskan algoritma, struktur data,
+antarmuka (interface), dan keputusan desain yang diambil beserta alasannya.]
+
+\subsection{[Sub-komponen 1.1]}
+\label{sec:4.2.1}
+
+[Detail sub-komponen.]
+
+\subsection{[Sub-komponen 1.2]}
+\label{sec:4.2.2}
+
+[Detail sub-komponen.]
+
+\section{Perancangan [Komponen 2]}
+\label{sec:4.3}
+
+[Deskripsikan desain komponen kedua.]
+
+\section{Perancangan [Komponen 3]}
+\label{sec:4.4}
+
+[Deskripsikan desain komponen ketiga.]
+
+\section{Rancangan Antarmuka Data}
+\label{sec:4.5}
+
+[Jelaskan format data yang mengalir antar komponen, skema database (jika ada), format
+file input/output, dan protokol komunikasi antar-komponen.]
+
+% Contoh format output JSON
+% \begin{lstlisting}[language=,caption={Format data antar-komponen},label={lst:4.format}]
+% {
+%   "id": "string",
+%   "timestamp": "ISO8601",
+%   "fitur_a": float,
+%   "fitur_b": float,
+%   "label": "string"
+% }
+% \end{lstlisting}
+
+\section{Rancangan Pengujian}
+\label{sec:4.6}
+
+[Deskripsikan skenario pengujian yang akan dilakukan pada Bab~6. Apa yang akan diuji,
+bagaimana cara mengukurnya, dan kriteria keberhasilan yang ditetapkan.]
+
+\begin{table}[H]
+  \centering
+  \caption{Skenario pengujian}
+  \label{tab:4.skenario}
+  \begin{tabular}{clll}
+    \toprule
+    \textbf{No.} & \textbf{Skenario} & \textbf{Variabel} & \textbf{Metrik} \\
+    \midrule
+    S1 & [Nama skenario 1] & [Variabel yang diubah] & [Metrik yang diukur] \\
+    S2 & [Nama skenario 2] & [Variabel yang diubah] & [Metrik yang diukur] \\
+    S3 & [Nama skenario 3] & [Variabel yang diubah] & [Metrik yang diukur] \\
+    \bottomrule
+  \end{tabular}
+\end{table}

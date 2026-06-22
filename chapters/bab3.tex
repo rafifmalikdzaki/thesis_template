@@ -1,0 +1,161 @@
+% =====================================================================
+%  BAB 3 — METODOLOGI PENELITIAN
+% =====================================================================
+
+\chapter{Metodologi Penelitian}
+
+\section{Desain Penelitian}
+\label{sec:3.1}
+
+Penelitian ini menggunakan pendekatan [eksperimental/deskriptif/kuantitatif/kualitatif/campuran].
+[Jelaskan alasan pemilihan desain penelitian ini dan bagaimana desain tersebut menjawab
+rumusan masalah yang telah ditetapkan.]
+
+% Contoh gambar alur penelitian
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=1cm]
+    \node[term]    (mulai)   {Mulai};
+    \node[proc]    (studi)   [below=of mulai]   {Studi Literatur};
+    \node[proc]    (rumus)   [below=of studi]   {Perumusan Masalah};
+    \node[proc]    (data)    [below=of rumus]   {Pengumpulan Data};
+    \node[proc]    (analisis)[below=of data]    {Analisis \& Perancangan};
+    \node[proc]    (impl)    [below=of analisis]{Implementasi};
+    \node[proc]    (uji)     [below=of impl]    {Pengujian \& Evaluasi};
+    \node[dec]     (valid)   [below=of uji]     {Tujuan \\ tercapai?};
+    \node[proc]    (perbaiki)[right=2cm of valid]{Perbaikan};
+    \node[proc]    (laporan) [below=of valid]   {Penulisan Laporan};
+    \node[term]    (selesai) [below=of laporan] {Selesai};
+
+    \draw[arr] (mulai)    -- (studi);
+    \draw[arr] (studi)    -- (rumus);
+    \draw[arr] (rumus)    -- (data);
+    \draw[arr] (data)     -- (analisis);
+    \draw[arr] (analisis) -- (impl);
+    \draw[arr] (impl)     -- (uji);
+    \draw[arr] (uji)      -- (valid);
+    \draw[arr] (valid)    -- node[flbl,right]{Ya}  (laporan);
+    \draw[arr] (valid)    -- node[flbl,above]{Tidak}(perbaiki);
+    \draw[arr] (perbaiki) |- (impl);
+    \draw[arr] (laporan)  -- (selesai);
+  \end{tikzpicture}
+  \caption{Alur penelitian}
+  \label{fig:3.alur}
+\end{figure}
+
+\section{Dataset dan Lingkungan Eksperimen}
+\label{sec:3.2}
+
+\subsection{Dataset}
+\label{sec:3.2.1}
+
+[Deskripsikan dataset yang digunakan: sumber, ukuran, karakteristik distribusi kelas,
+format, dan cara mendapatkannya. Jelaskan apakah dataset publik atau dikumpulkan sendiri.]
+
+\begin{table}[H]
+  \centering
+  \caption{Karakteristik dataset yang digunakan}
+  \label{tab:3.dataset}
+  \begin{tabular}{lrrl}
+    \toprule
+    \textbf{Subset} & \textbf{Jumlah sampel} & \textbf{Proporsi (\%)} & \textbf{Keterangan} \\
+    \midrule
+    [Kelas A / Benign] & [X.XXX] & [XX,X] & [Deskripsi singkat] \\
+    [Kelas B / Attack] & [X.XXX] & [XX,X] & [Deskripsi singkat] \\
+    \midrule
+    \textbf{Total}     & [X.XXX] & 100,0  & \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Lingkungan Eksperimen}
+\label{sec:3.2.2}
+
+Eksperimen dilakukan pada lingkungan sebagai berikut:
+
+\begin{table}[H]
+  \centering
+  \caption{Spesifikasi lingkungan eksperimen}
+  \label{tab:3.lingkungan}
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{Komponen} & \textbf{Spesifikasi} \\
+    \midrule
+    Sistem Operasi   & [Nama OS, Versi] \\
+    Prosesor         & [Nama CPU, Jumlah Core, Frekuensi] \\
+    Memori (RAM)     & [Kapasitas GB] \\
+    Penyimpanan      & [Tipe, Kapasitas] \\
+    Bahasa Pemrograman & [Bahasa, Versi] \\
+    Framework/Library& [Nama, Versi] \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Metode yang Digunakan}
+\label{sec:3.3}
+
+\subsection{[Metode 1]}
+\label{sec:3.3.1}
+
+[Uraikan metode/algoritma pertama yang digunakan. Jelaskan cara kerja, parameter kunci,
+dan alasan pemilihan metode ini. Sertakan pseudocode jika perlu.]
+
+% Contoh pseudocode
+% \begin{lstlisting}[language=Python, caption={Pseudocode [Metode 1]}, label={lst:3.pseudo}]
+% def metode(input):
+%     # Langkah 1: inisialisasi
+%     hasil = []
+%     # Langkah 2: proses
+%     for item in input:
+%         hasil.append(proses(item))
+%     return hasil
+% \end{lstlisting}
+
+\subsection{[Metode 2]}
+\label{sec:3.3.2}
+
+[Uraikan metode kedua.]
+
+\section{Metrik Evaluasi}
+\label{sec:3.4}
+
+Kinerja sistem dievaluasi menggunakan metrik-metrik berikut.
+
+\textbf{Presisi} (\emph{Precision}) mengukur proporsi prediksi positif yang benar:
+\begin{equation}
+  \text{Presisi} = \frac{TP}{TP + FP}
+  \label{eq:presisi}
+\end{equation}
+
+\textbf{Recall} (\emph{Sensitivitas}) mengukur kemampuan model mendeteksi kasus positif:
+\begin{equation}
+  \text{Recall} = \frac{TP}{TP + FN}
+  \label{eq:recall}
+\end{equation}
+
+\textbf{F1-score} merupakan rata-rata harmonis antara presisi dan recall:
+\begin{equation}
+  F_1 = 2 \cdot \frac{\text{Presisi} \times \text{Recall}}{\text{Presisi} + \text{Recall}}
+  \label{eq:f1}
+\end{equation}
+
+\noindent
+di mana $TP$ = \emph{True Positive}, $FP$ = \emph{False Positive}, $FN$ = \emph{False Negative}.
+
+[Tambahkan metrik lain yang relevan, misalnya latensi, throughput, AUC-ROC, dsb.]
+
+\section{Prosedur Eksperimen}
+\label{sec:3.5}
+
+[Jelaskan langkah-langkah eksperimen secara runtut: pembagian data (train/val/test),
+metode validasi (k-fold cross-validation, hold-out), skenario ablasi, dsb. Pastikan
+eksperimen dapat direproduksi oleh peneliti lain.]
+
+Eksperimen dilaksanakan dalam tahapan berikut:
+
+\begin{enumerate}
+  \item \textbf{Praproses data}: [normalisasi, penanganan nilai hilang, encoding, dsb.]
+  \item \textbf{Pelatihan model}: [pembagian data, hiperparameter, strategi tuning.]
+  \item \textbf{Pengujian}: [skenario pengujian, baseline yang dibandingkan.]
+  \item \textbf{Analisis}: [metrik yang dihitung, visualisasi yang dibuat.]
+\end{enumerate}

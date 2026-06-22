@@ -1,0 +1,98 @@
+% =====================================================================
+%  BAB 5 — IMPLEMENTASI
+% =====================================================================
+
+\chapter{Implementasi}
+
+\section{Lingkungan Implementasi}
+\label{sec:5.1}
+
+Implementasi dilakukan pada lingkungan yang telah dideskripsikan pada
+Tabel~\ref{tab:3.lingkungan} di Bab~3. [Tambahkan detail khusus implementasi jika ada
+perbedaan atau tambahan dari yang sudah disebutkan.]
+
+\section{Implementasi [Komponen 1]}
+\label{sec:5.2}
+
+[Jelaskan bagaimana Komponen 1 diimplementasikan. Hubungkan implementasi ke rancangan
+di Bab~4. Sorot keputusan teknis yang diambil selama implementasi, terutama yang berbeda
+dari rancangan awal beserta alasannya.]
+
+\subsection{[Modul / Fungsi Kunci 1]}
+\label{sec:5.2.1}
+
+[Penjelasan modul. Sertakan snippet kode untuk bagian yang non-trivial atau inovatif.
+Jangan tampilkan kode yang sudah jelas; fokus pada bagian yang bernilai penjelasan.]
+
+\begin{lstlisting}[language=Python, caption={[Deskripsi Kode Sumber 1]}, label={lst:5.kode1}]
+# Contoh implementasi [fungsi kunci]
+def fungsi_kunci(parameter_a, parameter_b):
+    """[Docstring singkat.]"""
+    # [Langkah 1: jelaskan logika non-trivial di sini]
+    hasil_antara = proses_awal(parameter_a)
+
+    # [Langkah 2]
+    for item in hasil_antara:
+        item = transformasi(item, parameter_b)
+
+    return hasil_antara
+\end{lstlisting}
+
+\subsection{[Modul / Fungsi Kunci 2]}
+\label{sec:5.2.2}
+
+[Penjelasan modul berikutnya.]
+
+\section{Implementasi [Komponen 2]}
+\label{sec:5.3}
+
+[Implementasi komponen kedua.]
+
+\section{Implementasi [Komponen 3]}
+\label{sec:5.4}
+
+[Implementasi komponen ketiga.]
+
+\section{Integrasi Antar-Komponen}
+\label{sec:5.5}
+
+[Jelaskan bagaimana komponen-komponen dihubungkan satu sama lain. Pipeline data, antrian
+pesan, API, konfigurasi, dsb. Tampilkan diagram aliran data atau topologi deployment
+jika membantu.]
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=1.2cm and 2.5cm]
+    % ── Ganti dengan diagram integrasi Anda ──────────────────────────
+    \node[procplain, fill=cProsesBg, draw=cProses] (a) {[Komponen A]};
+    \node[broker,    fill=cDataBg,   draw=cData,
+          right=of a] (b) {[Broker/\\Queue]};
+    \node[procplain, fill=cOkBg,    draw=cOk,
+          right=of b] (c) {[Komponen C]};
+
+    \draw[arr] (a) -- node[above,font=\scriptsize]{[data]} (b);
+    \draw[arr] (b) -- node[above,font=\scriptsize]{[event]} (c);
+  \end{tikzpicture}
+  \caption{Topologi integrasi antar-komponen}
+  \label{fig:5.integrasi}
+\end{figure}
+
+\section{Kendala Implementasi}
+\label{sec:5.6}
+
+[Uraikan kendala teknis yang ditemui selama implementasi dan bagaimana cara mengatasinya.
+Ini adalah bagian yang sering dilewatkan tapi bernilai tinggi bagi pembaca.]
+
+\begin{table}[H]
+  \centering
+  \caption{Kendala implementasi dan solusinya}
+  \label{tab:5.kendala}
+  \begin{tabular}{p{5cm}p{4cm}p{4cm}}
+    \toprule
+    \textbf{Kendala} & \textbf{Dampak} & \textbf{Solusi} \\
+    \midrule
+    [Deskripsi kendala 1] & [Dampak pada sistem] & [Solusi yang diterapkan] \\
+    [Deskripsi kendala 2] & [Dampak pada sistem] & [Solusi yang diterapkan] \\
+    \bottomrule
+  \end{tabular}
+\end{table}
