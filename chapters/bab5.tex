@@ -65,7 +65,7 @@ jika membantu.]
   \begin{tikzpicture}[node distance=1.2cm and 2.5cm]
     % ── Ganti dengan diagram integrasi Anda ──────────────────────────
     \node[procplain, fill=cProsesBg, draw=cProses] (a) {[Komponen A]};
-    \node[broker,    fill=cDataBg,   draw=cData,
+    \node[procplain, fill=cDataBg,   draw=cData,
           right=of a] (b) {[Broker/\\Queue]};
     \node[procplain, fill=cOkBg,    draw=cOk,
           right=of b] (c) {[Komponen C]};
@@ -91,8 +91,8 @@ Ini adalah bagian yang sering dilewatkan tapi bernilai tinggi bagi pembaca.]
     \toprule
     \textbf{Kendala} & \textbf{Dampak} & \textbf{Solusi} \\
     \midrule
-    [Deskripsi kendala 1] & [Dampak pada sistem] & [Solusi yang diterapkan] \\
-    [Deskripsi kendala 2] & [Dampak pada sistem] & [Solusi yang diterapkan] \\
+    {[Deskripsi kendala 1]} & [Dampak pada sistem] & [Solusi yang diterapkan] \\
+    {[Deskripsi kendala 2]} & [Dampak pada sistem] & [Solusi yang diterapkan] \\
     \bottomrule
   \end{tabular}
 \end{table}
