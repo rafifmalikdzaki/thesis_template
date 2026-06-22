@@ -15,7 +15,9 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[indonesian]{babel}   % otomatis: Bab / Gambar / Tabel / Daftar Isi
-\usepackage{mathptmx}            % Times New Roman
+\usepackage[scaled=1.0]{helvet}  % Helvetica ≈ Arial (pdflatex tidak bisa embed Arial asli)
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{sfmath}              % math mengikuti sans-serif
 \usepackage{setspace}
 \onehalfspacing                  % spasi 1,5
 

@@ -22,7 +22,7 @@ thesis_template/
 │   ├── bab6.tex                    ← Pengujian & Analisis
 │   └── bab7.tex                    ← Kesimpulan & Saran
 ├── backmatter/
-│   └── referensi.tex               ← Daftar Pustaka (APA 7)
+│   └── referensi.tex               ← Daftar Pustaka (Harvard ARU)
 └── assets/
     └── logo_institusi.png          ← ganti dengan logo kampus Anda
 ```
@@ -46,7 +46,7 @@ pdflatex -interaction=nonstopmode main.tex   # run twice for TOC/refs
 | Setting       | Value         |
 |---------------|---------------|
 | Paper         | A4            |
-| Font          | Times (12pt)  |
+| Font          | Arial/Helvetica (12pt) |
 | Line spacing  | 1.5           |
 | Left margin   | 4 cm          |
 | Right/Top/Bot | 3 cm          |
