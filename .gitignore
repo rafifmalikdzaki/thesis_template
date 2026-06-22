@@ -4,7 +4,6 @@
 *.lot
 *.out
 *.toc
-*.pdf
 *.synctex.gz
 *.fls
 *.fdb_latexmk
