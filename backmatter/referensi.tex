@@ -1,7 +1,8 @@
 % =====================================================================
 %  DAFTAR PUSTAKA
-%  Gaya: APA 7th edition (manual, tanpa BibTeX)
-%  Atau: ganti seluruh isi dengan \bibliography{refs} jika pakai BibTeX/BibLaTeX
+%  Gaya: Harvard Anglia Ruskin University (ARU)
+%  Format manual — tanpa BibTeX
+%  Urutan: alfabet nama belakang penulis pertama
 % =====================================================================
 
 \chapter*{Daftar Pustaka}
@@ -12,22 +13,49 @@
 \setlength{\leftskip}{0.5cm}
 \setlength{\parskip}{6pt}
 
-% ── Format APA 7: Penulis, A. A., Penulis, B. B., & Penulis, C. C. (Tahun).
-%                 Judul artikel. \textit{Nama Jurnal, Volume}(Nomor), Halaman-Halaman.
-%                 https://doi.org/xxxxx
-% ────────────────────────────────────────────────────────────────────────────
+% ── FORMAT HARVARD ARU ────────────────────────────────────────────────
+%
+% JURNAL
+%   Nama Belakang, Inisial. (Tahun) 'Judul artikel',
+%   \textit{Nama Jurnal}, Volume(Nomor), hlm. XX--XX.
+%   doi: xxxxx [Diakses: DD Bulan YYYY].
+%
+% BUKU
+%   Nama Belakang, Inisial. (Tahun) \textit{Judul Buku}.
+%   Edisi ke-X. Kota: Penerbit.
+%
+% BAB DALAM BUKU YANG DIEDIT
+%   Nama Belakang, Inisial. (Tahun) 'Judul bab', dalam
+%   Nama Belakang Editor, Inisial. (ed./eds.)
+%   \textit{Judul Buku}. Kota: Penerbit, hlm. XX--XX.
+%
+% PROSIDING KONFERENSI
+%   Nama Belakang, Inisial. (Tahun) 'Judul makalah',
+%   \textit{Nama Konferensi}, Kota, DD--DD Bulan YYYY.
+%   Kota: Penerbit, hlm. XX--XX.
+%
+% SITUS WEB / DOKUMEN ONLINE
+%   Nama Belakang, Inisial. / Nama Organisasi (Tahun)
+%   \textit{Judul Halaman}. Tersedia di: URL
+%   [Diakses: DD Bulan YYYY].
+%
+% DUA ATAU TIGA PENULIS: pisah dengan 'dan'
+%   Doe, J. dan Smith, A. (Tahun) ...
+%
+% EMPAT PENULIS ATAU LEBIH: tulis semua sampai penulis terakhir
+%   (tidak disingkat \textit{et al.} dalam daftar pustaka —
+%    \textit{et al.} hanya untuk sitasi dalam teks)
+% ─────────────────────────────────────────────────────────────────────
 
-[Penulis, A. A., \& Penulis, B. B.] ([Tahun]). [Judul artikel, tanpa huruf kapital kecuali
-proper noun dan kata pertama]. \textit{[Nama Jurnal], [Vol]}([Nomor]), [hal–hal].
-\url{https://doi.org/[DOI]}
+% Contoh jurnal:
+[Nama Belakang], [I]. ([Tahun]) '[Judul artikel]',
+\textit{[Nama Jurnal]}, [Vol]([No]), hlm.~[XX--XX].
+doi:~[xxxxx] [Diakses: DD Bulan YYYY].
 
-[Penulis, C. C.] ([Tahun]). \textit{[Judul buku]}. [Penerbit].
+% Contoh buku:
+[Nama Belakang], [I]. ([Tahun]) \textit{[Judul Buku]}.
+[Kota]: [Penerbit].
 
-[Penulis, D. D., \& Penulis, E. E.] ([Tahun]). [Judul artikel prosiding]. Dalam
-[Nama Editor (Ed.)], \textit{[Judul Prosiding]} (hlm.~[XX--XX]). [Penerbit].
-\url{https://doi.org/[DOI]}
-
-% Tambahkan referensi sesuai format di atas, diurutkan alfabet berdasarkan nama belakang
-% penulis pertama.
+% Tambahkan referensi di bawah, diurutkan alfabet nama belakang penulis pertama.
 
 \endgroup

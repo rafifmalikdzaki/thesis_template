@@ -5,7 +5,7 @@
 %    main.tex                    ← berkas ini (preamble + \include)
 %    frontmatter/abstrak.tex     ← abstrak + kata pengantar
 %    chapters/bab1–bab7.tex      ← bab-bab tesis
-%    backmatter/referensi.tex    ← daftar pustaka
+%    backmatter/referensi.tex    ← daftar pustaka (Harvard ARU)
 %    assets/                     ← gambar (.png/.pdf)
 % =====================================================================
 
@@ -21,7 +21,7 @@
 
 % ── Tata letak halaman ───────────────────────────────────────────────
 \usepackage[a4paper,left=4cm,right=3cm,top=3cm,bottom=3cm]{geometry}
-\usepackage{parskip}
+% parskip dihapus — atur manual agar inden paragraf tetap aktif
 \setlength{\parindent}{1.27cm}
 \setlength{\parskip}{0pt plus 1pt}
 
@@ -34,7 +34,32 @@
 \usepackage{longtable}
 \usepackage{float}
 \usepackage{caption}
-\captionsetup{font=small, labelfont=bf, justification=centering}
+% Semua caption: bold label, centered, posisi default (bawah untuk gambar, atas untuk tabel)
+\captionsetup{font=normalsize, labelfont=bf, textfont=bf, justification=centering, singlelinecheck=false}
+\captionsetup[figure]{position=below}
+\captionsetup[table]{position=above}
+
+% ── Tipe float kustom (ganti nama caption sesuai kebutuhan) ──────────
+% Contoh: \DeclareCaptionType{diagram}[Diagram][Daftar Diagram]
+% Contoh: \DeclareCaptionType{bagan}[Bagan][Daftar Bagan]
+% Setelah deklarasi, gunakan environment {diagram} seperti {figure}
+%   \begin{diagram}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{nama_file}
+%     \caption{Judul diagram}
+%   \end{diagram}
+
+% ── Tabel full-border (pakai \hline + kolom |c|c|) ───────────────────
+% Template tabel full-border:
+%   \begin{table}[H]
+%     \caption{Judul Tabel}
+%     \centering
+%     \begin{tabular}{|p{4cm}|p{9cm}|}
+%       \hline
+%       \textbf{Kolom 1} & \textbf{Kolom 2} \\ \hline
+%       Isi baris        & Isi baris        \\ \hline
+%     \end{tabular}
+%   \end{table}
 
 % ── Matematika ───────────────────────────────────────────────────────
 \usepackage{amsmath}
