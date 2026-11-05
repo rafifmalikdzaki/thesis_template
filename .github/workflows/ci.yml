@@ -3,8 +3,14 @@ name: CI
 on:
   push:
     branches: [main, master]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
   pull_request:
     branches: [main, master]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
   workflow_dispatch:
 
 permissions:
@@ -18,6 +24,7 @@ jobs:
   build:
     name: Build PDF and Overleaf package
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -75,8 +82,22 @@ jobs:
           if-no-files-found: error
 
   compat:
-    name: Engine compatibility (${{ matrix.engine }})
+    name: Engine compatibility (${{ matrix.engine }}) [advisory]
     runs-on: ubuntu-latest
+    timeout-minutes: 25
+    # Advisory, and only on main/master pushes or a manual run. Pull requests
+    # run just the required pdfLaTeX build, so a first-time contributor never
+    # needs the extra TeX installs and a platform-side font problem cannot
+    # block anyone.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' &&
+       (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'))
+    # pdfLaTeX is the required reference engine (see the `build` job). The
+    # other engines are a convenience: a platform-side failure (missing font
+    # package, old luaotfload, runner image change) must not fail the
+    # workflow. At least one engine - the required one - has to work.
+    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
@@ -113,3 +134,13 @@ jobs:
           pages=$(pdfinfo main.pdf | awk '/^Pages:/ {print $2}')
           echo "${{ matrix.engine }} built $pages pages"
           test "${pages:-0}" -ge 30
+
+      - name: Record advisory result
+        if: always()
+        run: |
+          if [ -s main.pdf ]; then
+            pages=$(pdfinfo main.pdf | awk '/^Pages:/ {print $2}')
+            echo "| ${{ matrix.engine }} | built ${pages} pages | advisory |" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "| ${{ matrix.engine }} | did not produce a PDF | advisory, non-blocking |" >> "$GITHUB_STEP_SUMMARY"
+          fi
