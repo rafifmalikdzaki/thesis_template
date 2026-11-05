@@ -43,8 +43,9 @@ value is a bracketed placeholder, and the chapter text is template prose to repl
 - **One-command builds per engine**, via `.latexmkrc`: `bash build.sh` for pdfLaTeX or
   `bash build.sh --engine=xelatex` / `--engine=lualatex` for the others.
 - **One-command Overleaf package**, plus a repository that Overleaf can import directly.
-- **CI** builds the PDF and re-builds the packaged archive on every push, and runs an
-  engine-compatibility matrix for XeLaTeX and LuaLaTeX.
+- **CI** builds the PDF and re-builds the packaged archive on every push. pdfLaTeX is
+  the required gate; XeLaTeX and LuaLaTeX run in an advisory matrix, so a platform-side
+  problem with an optional engine is reported but never fails the workflow.
 
 ## 🚀 Getting Started
 
@@ -131,6 +132,7 @@ thesis_template/
 ├── lampiran/
 │   └── lampiran_a.tex          # Example appendix (LAMPIRAN A)
 ├── assets/                     # Logo, illustration and six vector figure PDFs
+├── fonts/                      # OpenType fonts for XeLaTeX/LuaLaTeX + licences
 ├── examples/tikz/              # TikZ sources of those figures (LaTeX-only extension)
 └── docs/                       # EDITING.md and OVERLEAF.md
 ```
@@ -308,6 +310,35 @@ Conversion is best-effort and documented in
 [`thesis_template_tools`](https://github.com/rafifmalikdzaki/thesis_template_tools): it
 fails loudly on TikZ, merged cells, raw TeX and other unsupported constructs instead of
 silently dropping them.
+
+## 📊 Engine and Compiler Matrix
+
+`thesis.cls` detects the compiler, so the same sources build with any of the engines
+below. This is the reference comparison; **pdfLaTeX is the recommended default** for the
+thesis because it gives the exact institutional look with the most stable pagination.
+
+| Engine | Status | Mathematics | Page count | Fonts needed | Best for |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **pdfLaTeX** | ✅ Recommended, optimized default | Sans-serif (`sansmathfonts`) | 34 (reference) | TeX Live Type1 only | Thesis production; exact format fidelity; fastest builds; every Overleaf plan |
+| **XeLaTeX** | ✅ Supported | Latin Modern Math (serif) | 35 (slight metric shift) | Bundled in `fonts/` | Need for Unicode text or system/OpenType fonts; modern font workflow |
+| **LuaLaTeX** | ✅ Supported (CI-verified) | Latin Modern Math (serif) | ≈35 (same branch as XeLaTeX) | Bundled in `fonts/` + `luaotfload` from TeX Live | Lua scripting, `luaotfload`-based font handling; same trade-offs as XeLaTeX |
+| **Typst** | ✅ Alternative engine, separate repo | Native Typst math | 32 | Bundled in that repo | Preferred authoring ergonomics and fast rebuilds; not a LaTeX compiler |
+
+Notes:
+
+- pdfLaTeX is the only engine that produces the sans-serif mathematics of the reference
+  style; XeLaTeX and LuaLaTeX fall back to Latin Modern Math, so equations look slightly
+  different and pagination can shift by a page.
+- The Unicode engines read the OpenType fonts from the repository's `fonts/` directory;
+  there is no dependency on a system `tex-gyre` package.
+- LuaLaTeX additionally needs `luaotfload`, which ships with a complete TeX Live
+  installation (`texlive-luatex` on Debian/Ubuntu). CI installs it and builds the PDF, so
+  support is verified there even if a minimal local TeX installation lacks it.
+- On Overleaf, select the compiler under **Menu → Settings → Compiler**. The bundled
+  `.latexmkrc` does not force an engine.
+- Typst lives in [`thesis_template_typst`](https://github.com/rafifmalikdzaki/thesis_template_typst);
+  the shared tools convert between the two projects and verify that both render the same
+  manuscript.
 
 ## 📚 Documentation
 
