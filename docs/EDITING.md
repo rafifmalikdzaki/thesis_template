@@ -5,52 +5,61 @@ for the person editing the thesis; the shipped content is placeholder text, numb
 and labels that you replace with your own. User-facing manuscript prose stays in
 Indonesian; this documentation is in English.
 
-The project builds with pdfLaTeX through `latexmk`; see the compiler section below for
-the supported toolchain and package-ordering constraints.
+The project is engine-agnostic: `thesis.cls` detects the compiler. **pdfLaTeX is the
+recommended, optimized default** (exact institutional look, stable 34-page pagination);
+XeLaTeX and LuaLaTeX are supported and swap in OpenType text fonts and Latin Modern
+Mathematics, so pagination may shift slightly. See the engine section below.
 
 ## 1. Layers and editing rules
 
 | Layer | Files | Rule |
 | --- | --- | --- |
 | Master | `main.tex` | Document order and `\include`s only. Calls `\thesiscovermatter`, `\thesisfrontmatter`, `\thesismainmatter` and `\thesisappendix`; holds no raw formatting. |
+| Class | `thesis.cls` | Loads `report`, detects the engine, owns fonts/mathematics/language, reads `metadata.tex` and sets the PDF information. |
+| Layout | `thesis-layout.sty` | Geometry, headings, captions, numbering transitions, object interfaces, administrative pages. |
 | Metadata | `metadata.tex` | Hand-edited administrative values only, one plain-text `\newcommand` each. |
-| Layout | `preamble.tex`, `thesis-layout.sty` | Package loading, geometry, headings, captions, numbering transitions, object interfaces, administrative pages. |
 | Content | `frontmatter/`, `chapters/`, `backmatter/`, `lampiran/` | Manuscript prose and portable objects only; no package loads, layout commands or `tikzpicture`. |
 
 `main.tex` is the only master. It starts with `% !TEX program = pdflatex`, which editor
-plugins and Overleaf use to select the engine. The page-numbering transitions live in
-`thesis-layout.sty` behind `\thesiscovermatter` (no page number),
-`\thesisfrontmatter` (roman, starting at i), `\thesismainmatter` (arabic, starting at
-1) and `\thesisappendix` (switches the chapter prefix to `LAMPIRAN` and letter
-numbering). Do not move these transitions or add formatting to `main.tex`: **all
-layout and formatting belong to `thesis-layout.sty`**.
+plugins and Overleaf use to select the recommended default engine, and uses
+`\documentclass{thesis}`. The page-numbering transitions live in `thesis-layout.sty`
+behind `\thesiscovermatter` (no page number), `\thesisfrontmatter` (roman, starting at
+i), `\thesismainmatter` (arabic, starting at 1) and `\thesisappendix` (switches the
+chapter prefix to `LAMPIRAN` and letter numbering). Do not move these transitions or
+add formatting to `main.tex`: **all layout and formatting belong to
+`thesis-layout.sty`**, and the engine/font setup belongs to `thesis.cls`.
 
-`preamble.tex` loads `metadata.tex` and `thesis-layout.sty` and sets the PDF document
-information. The layout package also loads `indentfirst` (the first paragraph after a
-heading is indented like every other paragraph) and `xurl` (long URLs in the
-bibliography break cleanly instead of overflowing).
+`thesis.cls` loads `metadata.tex` (and fails with a clear error if it is missing), then
+`thesis-layout.sty`, then sets the PDF document information. The layout package also
+loads `indentfirst` (the first paragraph after a heading is indented like every other
+paragraph) and `xurl` (long URLs in the bibliography break cleanly instead of
+overflowing).
 
 ## 2. Build and editing loop
 
 ```bash
-bash build.sh              # latexmk -> build/, then main.pdf at the repository root
-rm -rf build main.pdf      # full clean rebuild after structural edits
+bash build.sh                     # pdfLaTeX (recommended default) -> main.pdf
+bash build.sh --engine=xelatex    # XeLaTeX
+bash build.sh --engine=lualatex   # LuaLaTeX
+ENGINE=xelatex bash build.sh      # same, via environment variable
+rm -rf build main.pdf             # full clean rebuild after structural edits
 ```
 
-`build.sh` works from any directory. It runs `latexmk -pdf -file-line-error
--synctex=1 -interaction=nonstopmode -halt-on-error -outdir=build main.tex` and copies
-`build/main.pdf` to `main.pdf`. `.latexmkrc` fixes the same engine and flags and
-disables BibTeX, so Overleaf behaves the same way. `build/` is git-ignored; the PDF is
-a generated artefact, not a tracked file.
+`build.sh` works from any directory. It runs the matching `latexmk` mode (`-pdf`,
+`-xelatex` or `-lualatex`) with `-file-line-error -synctex=1 -interaction=nonstopmode
+-halt-on-error -outdir=build main.tex`, copies `build/main.pdf` to `main.pdf`, and prints
+the engine it used. `.latexmkrc` defines the three engine command strings and disables
+BibTeX, so Overleaf behaves the same way. `build/` is git-ignored; the PDF is a generated
+artefact, not a tracked file.
 
-Read `build/main.log` after a build. A healthy build has no errors, no undefined
+Read `build/main.log` after a build. A healthy pdfLaTeX build has no errors, no undefined
 references, no font warnings and no overfull boxes:
 
 ```bash
 grep -nE '^!|undefined|Font Warning|Overfull' build/main.log    # should print nothing
 ```
 
-For a bug report, uncomment `% \listfiles` in `preamble.tex`, rebuild, and attach the
+For a bug report, uncomment `% \listfiles` in `thesis.cls`, rebuild, and attach the
 ` *File List*` manifest printed at the end of the log together with `build/main.log`.
 
 ## 3. Metadata
@@ -234,20 +243,33 @@ To add a diagram:
    with a caption and label.
 5. Document the new source in `examples/tikz/README.md`.
 
-## 9. Compiler lock-down
+## 9. Engines, package ownership and ordering
 
-Keep the compiler and package order fixed:
+The document is engine-agnostic; choose the engine at build time. Keep the ownership
+boundaries and package order fixed:
 
-- **Engine**: pdfLaTeX only (`% !TEX program = pdflatex`, `.latexmkrc`,
-  `latexmk -pdf`). The layout uses Type1 fonts (`helvet`, `sansmathfonts`) and no
-  `fontspec`; XeLaTeX and LuaLaTeX are unsupported.
+- **pdfLaTeX — recommended default.** `bash build.sh` uses it. Exact institutional look:
+  Helvetica-metric Type1 text (`helvet`) and sans-serif Type1 mathematics
+  (`sansmathfonts`, `nottext` so the text family stays Helvetica). Stable pagination
+  (34 pages on the shipped manuscript).
+- **XeLaTeX / LuaLaTeX — supported.** `bash build.sh --engine=xelatex` or
+  `--engine=lualatex`; `thesis.cls` auto-detects the engine and uses `fontspec` with
+  filename-based TeX Gyre Heros, Latin Modern Mono and `unicode-math` with Latin Modern
+  Math. Pagination may shift (~35 pages with XeLaTeX) and the mathematics differs from
+  the pdfLaTeX look.
+- **Ownership.** `thesis.cls` loads `fontenc`/`helvet`/`sansmathfonts`/`babel`/`amsmath`/
+  `amssymb` (pdfLaTeX) or `fontspec`/`unicode-math` (XeLaTeX/LuaLaTeX), reads
+  `metadata.tex` and sets the PDF information. `thesis-layout.sty` loads only layout and
+  object packages, and keeps `\numberwithin{equation}{chapter}`.
 - **No bibliography tool**: the bibliography is manual text, so BibTeX/Biber and
-  `makeindex` are never run. `.latexmkrc` sets `$bibtex_use = 0`.
-- **Package order**: `hyperref` late; `xurl` after `hyperref`; `calc` before
-  `adjustbox`; `sansmathfonts` with `nottext` so the text family stays Helvetica;
-  `longtable` heads ordered `\endfirsthead`, `\endhead`, `\endfoot`, `\endlastfoot`.
+  `makeindex` are never run. `.latexmkrc` sets `$bibtex_use = 0` and does not fix the
+  engine (`$pdf_mode` is intentionally unset).
+- **Package order in the layout**: `hyperref` late; `xurl` after `hyperref`; `calc`
+  before `adjustbox`; `longtable` heads ordered `\endfirsthead`, `\endhead`, `\endfoot`,
+  `\endlastfoot`.
 - **Conflicts**: do not load `fontspec`, `unicode-math`, `biblatex`/`biber`,
-  `times`/`mathptmx`, or a second `hyperref`, and do not add `tikz` to the manuscript.
+  `times`/`mathptmx`, or a second `hyperref` yourself, and do not add `tikz` to the
+  manuscript. The class already handles the engine-specific font packages.
 
 The full package list and rationale are in the repository `README.md`.
 
@@ -255,9 +277,10 @@ The full package list and rationale are in the repository `README.md`.
 
 Before handing over a change:
 
-- [ ] `bash build.sh` exits 0 and refreshes `main.pdf` (34 pages on the shipped
-      placeholder manuscript).
+- [ ] `bash build.sh` (pdfLaTeX) exits 0 and refreshes `main.pdf` (34 pages on the
+      shipped placeholder manuscript).
 - [ ] `grep -nE '^!|undefined|Font Warning|Overfull' build/main.log` prints nothing.
+- [ ] `bash build.sh --engine=xelatex` exits 0 and produces a PDF (~35 pages).
 - [ ] Every numbered object has a label and every reference resolves.
 - [ ] Chapter headings read `BAB <n>`, sections `<n>.<m>`, appendix `LAMPIRAN A`.
 - [ ] Captions sit above tables/listings and below figures; captions are bold and
@@ -275,8 +298,8 @@ Before handing over a change:
 ## 11. First steps
 
 1. Install TeX Live 2025+ including `latexmk` (and `zip`/`unzip` for the Overleaf
-   package).
-2. Run `bash build.sh` once to confirm the shipped template builds.
+   package). Add `texlive-xetex`/`texlive-luatex` only if you want those engines.
+2. Run `bash build.sh` once to confirm the shipped template builds with pdfLaTeX.
 3. Fill `metadata.tex`, rebuild, and check the cover, approval and declaration pages.
 4. Replace the placeholder chapter content, figures, tables, listings and equations
    using the interfaces above.

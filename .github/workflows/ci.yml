@@ -39,7 +39,7 @@ jobs:
             unzip \
             zip
 
-      - name: Build main.pdf with latexmk
+      - name: Build main.pdf with latexmk (pdfLaTeX default)
         run: bash build.sh
 
       - name: Check that the build produced a PDF and a clean log
@@ -73,3 +73,43 @@ jobs:
           name: overleaf-package
           path: dist/thesis_template_overleaf.zip
           if-no-files-found: error
+
+  compat:
+    name: Engine compatibility (${{ matrix.engine }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [xelatex, lualatex]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live for ${{ matrix.engine }}
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            latexmk \
+            poppler-utils \
+            texlive-fonts-extra \
+            texlive-fonts-recommended \
+            texlive-lang-other \
+            texlive-latex-extra \
+            texlive-latex-recommended \
+            texlive-luatex \
+            texlive-science \
+            texlive-xetex \
+            unzip \
+            zip
+
+      - name: Build main.pdf with ${{ matrix.engine }}
+        run: bash build.sh --engine=${{ matrix.engine }}
+
+      - name: Require a PDF of at least 30 pages
+        run: |
+          test -s main.pdf
+          pages=$(pdfinfo main.pdf | awk '/^Pages:/ {print $2}')
+          echo "${{ matrix.engine }} built $pages pages"
+          test "${pages:-0}" -ge 30

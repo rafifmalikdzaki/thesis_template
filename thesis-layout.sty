@@ -4,26 +4,20 @@
 % =====================================================================
 %  THESIS LAYOUT — institutional formatting and object interfaces
 % =====================================================================
-%  This package owns all layout and formatting: page geometry, typeface,
-%  headings, captions, numbering transitions, object interfaces and the
+%  This package owns all layout and formatting: page geometry, headings,
+%  captions, numbering transitions, object interfaces and the
 %  administrative pages. main.tex stays structural only (document order and
 %  includes) and calls the structure interfaces defined below.
+%
+%  The typesetting engine, typeface, language and mathematics setup are
+%  owned by thesis.cls (pdfLaTeX: helvet + sansmathfonts; XeLaTeX/LuaLaTeX:
+%  fontspec + unicode-math). This package loads neither fonts nor an engine.
 %
 %  It never contains manuscript prose or personal data: metadata comes from
 %  metadata.tex and the administrative pages below render those values.
 %  Chapters must not redefine layout; they use the interfaces documented in
 %  docs/EDITING.md.
 % =====================================================================
-
-% ── Encoding, language and typeface ───────────────────────────────────
-\usepackage[T1]{fontenc}
-\usepackage[indonesian]{babel}
-% Helvetica is the Arial-compatible typeface. The sansmathfonts package is
-% loaded with the nottext option so it supplies sans-serif mathematics
-% without replacing the Helvetica text family.
-\usepackage[scaled=1.0]{helvet}
-\renewcommand{\familydefault}{\sfdefault}
-\usepackage[nottext]{sansmathfonts}
 
 % ── Page geometry, line spacing and paragraph indentation ─────────────
 \usepackage[a4paper,left=4cm,right=3cm,top=3cm,bottom=3cm]{geometry}
@@ -55,8 +49,8 @@
 \captionsetup[table]{position=above}
 
 % ── Mathematics ───────────────────────────────────────────────────────
-\usepackage{amsmath}
-\usepackage{amssymb}
+% amsmath/amssymb are loaded by thesis.cls for every engine; the layout
+% keeps the chapter-based equation numbering contract.
 \numberwithin{equation}{chapter}
 \usepackage{siunitx}
 \sisetup{output-decimal-marker={,}}

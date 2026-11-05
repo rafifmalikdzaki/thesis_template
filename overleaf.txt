@@ -1,8 +1,8 @@
 Thesis template — Overleaf quick start
 1. Create the project: Overleaf Menu > New Project > Import from GitHub and choose this repository, or upload dist/thesis_template_overleaf.zip (built by scripts/package_overleaf.sh) via Menu > New Project > Upload Project.
 2. Set Menu > Settings > Main document to main.tex.
-3. Set Menu > Settings > Compiler to pdfLaTeX. pdflatex only: XeLaTeX and LuaLaTeX are not supported (the layout uses Type1 fonts, not fontspec).
+3. Set Menu > Settings > Compiler to pdfLaTeX (recommended: exact institutional look and stable pagination). XeLaTeX and LuaLaTeX also work if you need OpenType fonts — thesis.cls detects the engine; pagination may shift.
 4. Leave Menu > Settings > TeX Live version at a current release (TeX Live 2025 or newer) and build.
 5. Bibliography tool: None. The bibliography is manual Harvard text in backmatter/referensi.tex; no BibTeX or Biber.
-6. Nothing else to install: assets/, .latexmkrc and all content files are already in the project.
+6. Nothing else to install: assets/, thesis.cls, .latexmkrc and all content files are already in the project.
 7. Edit metadata.tex and the chapter files, then press Recompile. Details: docs/OVERLEAF.md and docs/EDITING.md.

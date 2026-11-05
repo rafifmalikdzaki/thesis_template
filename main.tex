@@ -3,21 +3,22 @@
 %  TEMPLATE TESIS — BERKAS INDUK
 % =====================================================================
 %  Kompilasi: bash build.sh   (latexmk, hasil akhir main.pdf di direktori ini)
+%  Engine:    bash build.sh --engine=xelatex   (default: pdflatex)
 %
 %  Berkas ini hanya mengatur urutan dokumen: \include setiap bagian dan
 %  memanggil antarmuka struktur dari thesis-layout.sty. Seluruh tata letak,
 %  format halaman dan transisi penomoran halaman dimiliki thesis-layout.sty;
-%  jangan menambahkan perintah format di sini.
+%  engine, font dan matematika dimiliki thesis.cls. Jangan menambahkan
+%  perintah format di sini.
 %
-%  metadata.tex  → data administratif        preamble.tex → pemuatan paket
+%  thesis.cls      → engine, font, bahasa, matematika, metadata.tex
 %  thesis-layout.sty → tata letak & antarmuka objek
+%  metadata.tex    → data administratif
 %  frontmatter/ → halaman awal   chapters/ → bab   backmatter/ → daftar pustaka
 %  lampiran/    → lampiran (penomoran huruf)
 % =====================================================================
 
-\documentclass[12pt,a4paper]{report}
-
-\input{preamble}
+\documentclass{thesis}
 
 \begin{document}
 
