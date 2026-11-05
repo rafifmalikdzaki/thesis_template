@@ -60,7 +60,7 @@ frontmatter/              cover, approval, declaration, abstracts, preface
 chapters/                 bab1.tex … bab7.tex
 backmatter/referensi.tex  manual Harvard bibliography
 lampiran/lampiran_a.tex   appendix
-assets/                   logo and the six vector figure PDFs
+assets/, fonts/                   logo and the six vector figure PDFs
 ```
 
 Overleaf compiles the project with its own TeX Live; the repository does not bundle a

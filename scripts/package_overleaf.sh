@@ -110,6 +110,7 @@ project_files=(
   backmatter
   lampiran
   assets
+  fonts
 )
 
 # Defensive exclusions: these artefacts never belong in the package even if
@@ -149,6 +150,12 @@ unzip -q "$zip_path" -d "$tmp_dir"
   printf 'error: .latexmkrc is missing from the archive\n' >&2
   exit 1
 }
+if [[ "$verify_engine" != "pdflatex" ]]; then
+  [[ -f "$tmp_dir/fonts/texgyreheros-regular.otf" ]] || {
+    printf 'error: fonts/ is missing from the archive (required by %s)\n' "$verify_engine" >&2
+    exit 1
+  }
+fi
 
 # The same include layout that build.sh prepares for \include .aux files.
 mkdir -p "$tmp_dir/build" "$tmp_dir/build/frontmatter" "$tmp_dir/build/chapters" \
