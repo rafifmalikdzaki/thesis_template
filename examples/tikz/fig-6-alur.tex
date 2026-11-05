@@ -1,0 +1,26 @@
+% Gambar 6.1 — Alur prosedur pengujian (vector source, LaTeX-only extension).
+\documentclass[12pt,border=0pt,tikz]{standalone}
+\input{tikz-demo}
+\begin{document}
+\begin{tikzpicture}[node distance=0.9cm]
+  \node[term]     (mulai)  {Mulai};
+  \node[io]       (setup)  [below=of mulai]  {Inisialisasi lingkungan};
+  \node[proc]     (data)   [below=of setup]  {Muat data uji};
+  \node[proc]     (jalankan)[below=of data]  {Jalankan skenario};
+  \node[io]       (kumpul) [below=of jalankan]{Kumpulkan metrik};
+  \node[dec]      (ulang)  [below=of kumpul] {Semua skenario\\selesai?};
+  \node[proc]     (analisis)[below=of ulang] {Analisis \& visualisasi};
+  \node[term]     (selesai)[below=of analisis]{Selesai};
+  \node[proc]     (iterasi)[right=2cm of ulang]{Skenario\\berikutnya};
+
+  \draw[arr] (mulai)    -- (setup);
+  \draw[arr] (setup)    -- (data);
+  \draw[arr] (data)     -- (jalankan);
+  \draw[arr] (jalankan) -- (kumpul);
+  \draw[arr] (kumpul)   -- (ulang);
+  \draw[arr] (ulang)    -- node[flbl,right]{Ya} (analisis);
+  \draw[arr] (ulang)    -- node[flbl,above]{Tidak} (iterasi);
+  \draw[arr] (iterasi)  |- (data);
+  \draw[arr] (analisis) -- (selesai);
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,54 @@
+% =====================================================================
+%  LAMPIRAN A — CONTOH LAMPIRAN
+%  Bab ini hanya contoh singkat. \appendix pada main.tex mengubah
+%  penomoran bab menjadi huruf (LAMPIRAN A) dan penomoran objek menjadi
+%  A.1, A.2, dan seterusnya.
+% =====================================================================
+
+\chapter{Data Pendukung}
+\label{lam:a}
+
+\section{Contoh Tabel dan Persamaan}
+\label{lam:a.1}
+
+[Lampiran ini menunjukkan cara menempatkan tabel, persamaan, dan rujukan
+silang di dalam lampiran. Ganti isinya dengan data pendukung penelitian
+Anda, misalnya tabel pengukuran lengkap, kuesioner, atau kode program.]
+
+Tabel~\ref{tab:lam.a1} merangkum contoh data pendukung.
+
+\begin{thesistable}
+\begin{longtable}{@{}l r r@{}}
+  \caption{Contoh data pendukung pada lampiran}
+  \label{tab:lam.a1}\\
+  \toprule
+  \textbf{Pengamatan} & \textbf{[Nilai 1]} & \textbf{[Nilai 2]} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{3}{@{}l}{\footnotesize\itshape Lanjutan Tabel~\thetable}\\
+  \toprule
+  \textbf{Pengamatan} & \textbf{[Nilai 1]} & \textbf{[Nilai 2]} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  {[Pengamatan 1]} & [X,XX] & [X,XX] \\
+  {[Pengamatan 2]} & [X,XX] & [X,XX] \\
+  {[Pengamatan 3]} & [X,XX] & [X,XX] \\
+\end{longtable}
+\end{thesistable}
+
+Rata-rata dan varians contoh data ditunjukkan pada Persamaan~\eqref{eq:lam.a1}
+dan Persamaan~\eqref{eq:lam.a2}.
+
+\begin{equation}
+  \bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i
+  \label{eq:lam.a1}
+\end{equation}
+
+\begin{equation}
+  s^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(x_i - \bar{x}\right)^2
+  \label{eq:lam.a2}
+\end{equation}

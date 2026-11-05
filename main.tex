@@ -1,214 +1,45 @@
+% !TEX program = pdflatex
 % =====================================================================
 %  TEMPLATE TESIS — BERKAS INDUK
-%  Kompilasi: pdflatex -interaction=nonstopmode main.tex  (jalankan 2x)
-%  Struktur:
-%    main.tex                    ← berkas ini (preamble + \include)
-%    frontmatter/abstrak.tex     ← abstrak + kata pengantar
-%    chapters/bab1–bab7.tex      ← bab-bab tesis
-%    backmatter/referensi.tex    ← daftar pustaka (Harvard ARU)
-%    assets/                     ← gambar (.png/.pdf)
+% =====================================================================
+%  Kompilasi: bash build.sh   (latexmk, hasil akhir main.pdf di direktori ini)
+%
+%  Berkas ini hanya mengatur urutan dokumen: \include setiap bagian dan
+%  memanggil antarmuka struktur dari thesis-layout.sty. Seluruh tata letak,
+%  format halaman dan transisi penomoran halaman dimiliki thesis-layout.sty;
+%  jangan menambahkan perintah format di sini.
+%
+%  metadata.tex  → data administratif        preamble.tex → pemuatan paket
+%  thesis-layout.sty → tata letak & antarmuka objek
+%  frontmatter/ → halaman awal   chapters/ → bab   backmatter/ → daftar pustaka
+%  lampiran/    → lampiran (penomoran huruf)
 % =====================================================================
 
 \documentclass[12pt,a4paper]{report}
 
-% ── Bahasa & font ────────────────────────────────────────────────────
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[indonesian]{babel}   % otomatis: Bab / Gambar / Tabel / Daftar Isi
-\usepackage[scaled=1.0]{helvet}  % Helvetica ≈ Arial (pdflatex tidak bisa embed Arial asli)
-\renewcommand{\familydefault}{\sfdefault}
-\usepackage{sansmathfonts}       % math sans-serif, tanpa konflik arevmath
-\usepackage{setspace}
-\onehalfspacing                  % spasi 1,5
+\input{preamble}
 
-% ── Tata letak halaman ───────────────────────────────────────────────
-\usepackage[a4paper,left=4cm,right=3cm,top=3cm,bottom=3cm]{geometry}
-% parskip dihapus — atur manual agar inden paragraf tetap aktif
-\setlength{\parindent}{1.27cm}
-\setlength{\parskip}{0pt plus 1pt}
-
-% ── Tabel & gambar ───────────────────────────────────────────────────
-\usepackage{graphicx}
-\graphicspath{{assets/}}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{longtable}
-\usepackage{float}
-\usepackage{caption}
-% Semua caption: bold label, centered, posisi default (bawah untuk gambar, atas untuk tabel)
-\captionsetup{font=normalsize, labelfont=bf, textfont=bf, justification=centering, singlelinecheck=false, labelsep=space}
-\captionsetup[figure]{position=below}
-\captionsetup[table]{position=above}
-
-% ── Tipe float kustom (ganti nama caption sesuai kebutuhan) ──────────
-% Contoh: \DeclareCaptionType{diagram}[Diagram][Daftar Diagram]
-% Contoh: \DeclareCaptionType{bagan}[Bagan][Daftar Bagan]
-% Setelah deklarasi, gunakan environment {diagram} seperti {figure}
-%   \begin{diagram}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{nama_file}
-%     \caption{Judul diagram}
-%   \end{diagram}
-
-% ── Tabel full-border (pakai \hline + kolom |c|c|) ───────────────────
-% Template tabel full-border:
-%   \begin{table}[H]
-%     \caption{Judul Tabel}
-%     \centering
-%     \begin{tabular}{|p{4cm}|p{9cm}|}
-%       \hline
-%       \textbf{Kolom 1} & \textbf{Kolom 2} \\ \hline
-%       Isi baris        & Isi baris        \\ \hline
-%     \end{tabular}
-%   \end{table}
-
-% ── Matematika ───────────────────────────────────────────────────────
-\usepackage{amsmath}
-\numberwithin{equation}{chapter}   % nomor persamaan per-bab: (3.1), (3.2)
-\usepackage{amssymb}
-\usepackage{siunitx}
-\sisetup{output-decimal-marker={,}}
-
-% ── Heading bab & subbab ─────────────────────────────────────────────
-\usepackage{titlesec}
-% Bab: "BAB X JUDUL" satu baris, centered, bold, normal size
-\titleformat{\chapter}[block]
-  {\normalfont\normalsize\bfseries\centering}
-  {BAB \thechapter\space}
-  {0pt}
-  {\MakeUppercase}
-\titlespacing*{\chapter}{0pt}{0pt}{20pt}
-% Subbab: "X.Y Judul" bold, left-aligned, jarak label-judul normal
-\titleformat{\section}
-  {\normalfont\normalsize\bfseries}
-  {\thesection}
-  {1em}
-  {}
-\titleformat{\subsection}
-  {\normalfont\normalsize\bfseries}
-  {\thesubsection}
-  {1em}
-  {}
-
-% ── Mikrografi & hyperlink ───────────────────────────────────────────
-\usepackage{microtype}
-\setlength{\emergencystretch}{3em}
-\usepackage[hidelinks]{hyperref}
-\hypersetup{
-  pdftitle={Judul Tesis Anda},
-  pdfauthor={Nama Anda},
-}
-
-% ── Warna ────────────────────────────────────────────────────────────
-\usepackage{xcolor}
-\definecolor{cProses}{HTML}{4A6D8C}    \definecolor{cProsesBg}{HTML}{DCE6F0}
-\definecolor{cData}{HTML}{8C7B4A}      \definecolor{cDataBg}{HTML}{F0EBDC}
-\definecolor{cKeputusan}{HTML}{8C6A4A} \definecolor{cKeputusanBg}{HTML}{F5E9D8}
-\definecolor{cTerm}{HTML}{4A4A4A}      \definecolor{cTermBg}{HTML}{E4E4E4}
-\definecolor{cGrup}{HTML}{9AA7B4}      \definecolor{cGrupBg}{HTML}{F2F5F8}
-\definecolor{cOk}{HTML}{3E7D5A}        \definecolor{cOkBg}{HTML}{DFF0E6}
-\definecolor{cBad}{HTML}{A4503C}       \definecolor{cBadBg}{HTML}{F2DED7}
-\definecolor{kodeBg}{HTML}{F7F7F4}
-\definecolor{kodeKomentar}{HTML}{5A7D5A}
-\definecolor{kodeKunci}{HTML}{4A4A8C}
-\definecolor{kodeString}{HTML}{8C5A3C}
-
-% ── TikZ / pgfplots ──────────────────────────────────────────────────
-\usepackage{tikz}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.18}
-\usetikzlibrary{
-  shapes.geometric, arrows.meta, positioning,
-  calc, fit, backgrounds, decorations.pathreplacing
-}
-
-% node styles (flowchart monokrom)
-\tikzset{
-  term/.style={ellipse, draw=black, line width=.5pt,
-    minimum width=26mm, minimum height=9mm,
-    align=center, font=\footnotesize},
-  proc/.style={rectangle, draw=black, line width=.5pt,
-    minimum width=34mm, minimum height=11mm,
-    inner xsep=3.4mm, align=center, font=\footnotesize,
-    append after command={\pgfextra{
-      \draw[line width=.5pt]
-        ([xshift=1.6mm]\tikzlastnode.north west)
-        -- ([xshift=1.6mm]\tikzlastnode.south west);
-      \draw[line width=.5pt]
-        ([xshift=-1.6mm]\tikzlastnode.north east)
-        -- ([xshift=-1.6mm]\tikzlastnode.south east);}}},
-  procplain/.style={rectangle, draw=black, line width=.5pt,
-    minimum width=34mm, minimum height=11mm,
-    align=center, font=\footnotesize},
-  io/.style={trapezium, trapezium left angle=70, trapezium right angle=110,
-    draw=black, line width=.5pt,
-    minimum width=28mm, minimum height=9mm,
-    align=center, inner sep=2pt, font=\footnotesize},
-  dec/.style={diamond, aspect=2, draw=black, line width=.5pt,
-    align=center, inner sep=1pt, font=\footnotesize},
-  arr/.style={-{Stealth[length=2.2mm]}, draw=black, line width=.5pt},
-  flbl/.style={font=\footnotesize, fill=white, inner sep=1pt},
-}
-
-% ── Listing kode ─────────────────────────────────────────────────────
-\usepackage{listings}
-\renewcommand{\lstlistingname}{Kode Sumber}
-\lstdefinestyle{kode}{
-  backgroundcolor=\color{kodeBg},
-  basicstyle=\ttfamily\footnotesize,
-  commentstyle=\color{kodeKomentar}\itshape,
-  keywordstyle=\color{kodeKunci}\bfseries,
-  stringstyle=\color{kodeString},
-  numberstyle=\ttfamily\scriptsize\color{gray},
-  numbers=left, numbersep=8pt, stepnumber=1,
-  frame=single, rulecolor=\color{cGrup},
-  breaklines=true, breakatwhitespace=false,
-  showstringspaces=false, tabsize=2,
-  captionpos=t, xleftmargin=18pt, framexleftmargin=14pt,
-  literate={→}{$\rightarrow$}{1} {≤}{$\le$}{1} {≥}{$\ge$}{1}
-           {×}{$\times$}{1} {—}{{-{}-}}1 {–}{{-}}1
-}
-\lstset{style=kode}
-
-% ── Makro bantu ──────────────────────────────────────────────────────
-\usepackage[export]{adjustbox}
-\newcommand{\gambarbesar}[1]{%
-  \adjustbox{max width=\textwidth, max totalheight=0.82\textheight, center}{#1}}
-
-% ── Metadata dokumen ─────────────────────────────────────────────────
-\title{%
-  Judul Tesis\\
-  \large Subjudul (jika ada)%
-}
-\author{Nama Mahasiswa}
-\date{\the\year}
-
-% ═════════════════════════════════════════════════════════════════════
 \begin{document}
 
-% ── Cover (tidak bernomor halaman) ───────────────────────────────────
-\pagenumbering{gobble}
+% ── 1. Halaman judul (tanpa nomor halaman) ───────────────────────────
+\thesiscovermatter
 \include{frontmatter/cover}
 
-% ── Front matter (nomor halaman romawi) ──────────────────────────────
-\pagenumbering{roman}
-\setcounter{page}{1}
-
+% ── 2. Halaman awal (angka romawi) ───────────────────────────────────
+\thesisfrontmatter
 \include{frontmatter/lembar_pengesahan}
 \include{frontmatter/pernyataan_keaslian}
 \include{frontmatter/abstrak}
 \include{frontmatter/kata_pengantar}
 
+% ── 3. Daftar isi, gambar, tabel dan kode sumber ─────────────────────
 \tableofcontents
 \listoffigures
 \listoftables
+\lstlistoflistings
 
-\clearpage
-\pagenumbering{arabic}
-\setcounter{page}{1}
-
-% ── Bab-bab utama ────────────────────────────────────────────────────
+% ── 4. Bab utama (angka arab) ────────────────────────────────────────
+\thesismainmatter
 \include{chapters/bab1}
 \include{chapters/bab2}
 \include{chapters/bab3}
@@ -217,7 +48,11 @@
 \include{chapters/bab6}
 \include{chapters/bab7}
 
-% ── Daftar pustaka ───────────────────────────────────────────────────
+% ── 5. Daftar pustaka ────────────────────────────────────────────────
 \include{backmatter/referensi}
+
+% ── 6. Lampiran (penomoran A, A.1, A.2) ──────────────────────────────
+\thesisappendix
+\include{lampiran/lampiran_a}
 
 \end{document}

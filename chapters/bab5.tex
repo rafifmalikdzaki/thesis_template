@@ -23,8 +23,9 @@ dari rancangan awal beserta alasannya.]
 
 [Penjelasan modul. Sertakan snippet kode untuk bagian yang non-trivial atau inovatif.
 Jangan tampilkan kode yang sudah jelas; fokus pada bagian yang bernilai penjelasan.]
+Implementasi fungsi kunci ditunjukkan pada Kode Sumber~\ref{lst:5.kode1}.
 
-\begin{lstlisting}[language=Python, caption={[Deskripsi Kode Sumber 1]}, label={lst:5.kode1}]
+\begin{lstlisting}[language=Python, caption={Implementasi fungsi kunci}, label={lst:5.kode1}]
 # Contoh implementasi [fungsi kunci]
 def fungsi_kunci(parameter_a, parameter_b):
     """[Docstring singkat.]"""
@@ -58,21 +59,11 @@ def fungsi_kunci(parameter_a, parameter_b):
 
 [Jelaskan bagaimana komponen-komponen dihubungkan satu sama lain. Pipeline data, antrian
 pesan, API, konfigurasi, dsb. Tampilkan diagram aliran data atau topologi deployment
-jika membantu.]
+jika membantu.] Topologi integrasi antar-komponen ditunjukkan pada Gambar~\ref{fig:5.integrasi}.
 
 \begin{figure}[H]
   \centering
-  \begin{tikzpicture}[node distance=1.2cm and 1.5cm]
-    % ── Ganti dengan diagram integrasi Anda ──────────────────────────
-    \node[procplain, fill=cProsesBg, draw=cProses] (a) {[Komponen A]};
-    \node[procplain, fill=cDataBg,   draw=cData,
-          right=of a] (b) {[Broker/\\Queue]};
-    \node[procplain, fill=cOkBg,    draw=cOk,
-          right=of b] (c) {[Komponen C]};
-
-    \draw[arr] (a) -- node[above,font=\scriptsize]{[data]} (b);
-    \draw[arr] (b) -- node[above,font=\scriptsize]{[event]} (c);
-  \end{tikzpicture}
+  \thesisfigure{\includegraphics{assets/fig-5-integrasi.pdf}}
   \caption{Topologi integrasi antar-komponen}
   \label{fig:5.integrasi}
 \end{figure}
@@ -81,20 +72,27 @@ jika membantu.]
 \label{sec:5.6}
 
 [Uraikan kendala teknis yang ditemui selama implementasi dan bagaimana cara mengatasinya.
-Ini adalah bagian yang sering dilewatkan tapi bernilai tinggi bagi pembaca.]
+Ini adalah bagian yang sering dilewatkan tapi bernilai tinggi bagi pembaca.] Kendala yang
+ditemui beserta solusinya dirangkum pada Tabel~\ref{tab:5.kendala}.
 
-\begin{table}[H]
-  \centering
+\begin{thesistable}
+\begin{longtable}{@{}p{4.5cm} p{4cm} p{4cm}@{}}
   \caption{Kendala implementasi dan solusinya}
-  \label{tab:5.kendala}
-  \begin{adjustbox}{max width=\textwidth}
-  \begin{tabular}{p{5cm}p{4cm}p{4cm}}
-    \toprule
-    \textbf{Kendala} & \textbf{Dampak} & \textbf{Solusi} \\
-    \midrule
-    {[Deskripsi kendala 1]} & [Dampak pada sistem] & [Solusi yang diterapkan] \\
-    {[Deskripsi kendala 2]} & [Dampak pada sistem] & [Solusi yang diterapkan] \\
-    \bottomrule
-  \end{tabular}
-  \end{adjustbox}
-\end{table}
+  \label{tab:5.kendala}\\
+  \toprule
+  \textbf{Kendala} & \textbf{Dampak} & \textbf{Solusi} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{3}{@{}l}{\footnotesize\itshape Lanjutan Tabel~\thetable}\\
+  \toprule
+  \textbf{Kendala} & \textbf{Dampak} & \textbf{Solusi} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  {[Deskripsi kendala 1]} & [Dampak pada sistem] & [Solusi yang diterapkan] \\
+  {[Deskripsi kendala 2]} & [Dampak pada sistem] & [Solusi yang diterapkan] \\
+\end{longtable}
+\end{thesistable}

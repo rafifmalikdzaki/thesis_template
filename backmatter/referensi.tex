@@ -8,11 +8,6 @@
 \chapter*{Daftar Pustaka}
 \addcontentsline{toc}{chapter}{Daftar Pustaka}
 
-\begingroup
-\setlength{\parindent}{-0.5cm}
-\setlength{\leftskip}{0.5cm}
-\setlength{\parskip}{6pt}
-
 % ── FORMAT HARVARD ARU ────────────────────────────────────────────────
 %
 % JURNAL
@@ -36,8 +31,8 @@
 %
 % SITUS WEB / DOKUMEN ONLINE
 %   Nama Belakang, Inisial. / Nama Organisasi (Tahun)
-%   \textit{Judul Halaman}. Tersedia di: URL
-%   [Diakses: DD Bulan YYYY].
+%   \textit{Judul Halaman}. Tersedia di: \url{URL}
+%   [Diakses: DD Bulan YYYY]. URL panjang dipenggal otomatis (paket xurl).
 %
 % DUA ATAU TIGA PENULIS: pisah dengan 'dan'
 %   Doe, J. dan Smith, A. (Tahun) ...
@@ -46,6 +41,8 @@
 %   (tidak disingkat \textit{et al.} dalam daftar pustaka —
 %    \textit{et al.} hanya untuk sitasi dalam teks)
 % ─────────────────────────────────────────────────────────────────────
+
+\begin{thesisbibliography}
 
 % Contoh jurnal:
 [Nama Belakang], [I]. ([Tahun]) '[Judul artikel]',
@@ -56,6 +53,10 @@ doi:~[xxxxx] [Diakses: DD Bulan YYYY].
 [Nama Belakang], [I]. ([Tahun]) \textit{[Judul Buku]}.
 [Kota]: [Penerbit].
 
+% Contoh situs web / dokumen online (URL panjang dipenggal otomatis):
+[Nama Organisasi] ([Tahun]) \textit{[Judul halaman]}.
+Tersedia di: \url{https://contoh.ac.id/repositori/dokumen/contoh-laporan-tahunan-contoh-laporan-tahunan-contoh-laporan-tahunan} [Diakses: DD Bulan YYYY].
+
 % Tambahkan referensi di bawah, diurutkan alfabet nama belakang penulis pertama.
 
-\endgroup
+\end{thesisbibliography}

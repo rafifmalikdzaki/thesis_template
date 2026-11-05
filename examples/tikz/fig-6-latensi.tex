@@ -1,0 +1,28 @@
+% Gambar 6.3 — Latensi median terhadap beban (vector source, LaTeX-only extension).
+% Width is fixed in centimetres: 0.85 \textwidth of the 14 cm thesis text block.
+\documentclass[12pt,border=0pt,tikz]{standalone}
+\input{tikz-demo}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[
+    width=11.9cm, height=6cm,
+    xlabel={Beban (\emph{request/s})},
+    ylabel={Latensi median (ms)},
+    xmin=0, ymin=0,
+    grid=both, grid style={line width=.2pt, draw=gray!30},
+    major grid style={line width=.4pt, draw=gray!60},
+    legend pos=north west,
+    tick label style={font=\small},
+    label style={font=\small},
+  ]
+    \addplot[mark=o, thick] coordinates {
+      (100,1.2) (500,1.5) (1000,2.1) (2000,3.8) (5000,9.5)
+    };
+    \addlegendentry{[Sistem ini]}
+    \addplot[mark=square, thick, dashed] coordinates {
+      (100,2.0) (500,3.2) (1000,5.8) (2000,12.0) (5000,35.0)
+    };
+    \addlegendentry{[Baseline]}
+  \end{axis}
+\end{tikzpicture}
+\end{document}

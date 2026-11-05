@@ -1,0 +1,30 @@
+% Gambar 3.1 — Alur penelitian (vector source, LaTeX-only extension).
+\documentclass[12pt,border=0pt,tikz]{standalone}
+\input{tikz-demo}
+\begin{document}
+\begin{tikzpicture}[node distance=1cm]
+  \node[term]    (mulai)   {Mulai};
+  \node[proc]    (studi)   [below=of mulai]   {Studi Literatur};
+  \node[proc]    (rumus)   [below=of studi]   {Perumusan Masalah};
+  \node[proc]    (data)    [below=of rumus]   {Pengumpulan Data};
+  \node[proc]    (analisis)[below=of data]    {Analisis \& Perancangan};
+  \node[proc]    (impl)    [below=of analisis]{Implementasi};
+  \node[proc]    (uji)     [below=of impl]    {Pengujian \& Evaluasi};
+  \node[dec]     (valid)   [below=of uji]     {Tujuan \\ tercapai?};
+  \node[proc]    (perbaiki)[right=2cm of valid]{Perbaikan};
+  \node[proc]    (laporan) [below=of valid]   {Penulisan Laporan};
+  \node[term]    (selesai) [below=of laporan] {Selesai};
+
+  \draw[arr] (mulai)    -- (studi);
+  \draw[arr] (studi)    -- (rumus);
+  \draw[arr] (rumus)    -- (data);
+  \draw[arr] (data)     -- (analisis);
+  \draw[arr] (analisis) -- (impl);
+  \draw[arr] (impl)     -- (uji);
+  \draw[arr] (uji)      -- (valid);
+  \draw[arr] (valid)    -- node[flbl,right]{Ya}  (laporan);
+  \draw[arr] (valid)    -- node[flbl,above]{Tidak}(perbaiki);
+  \draw[arr] (perbaiki) |- (impl);
+  \draw[arr] (laporan)  -- (selesai);
+\end{tikzpicture}
+\end{document}

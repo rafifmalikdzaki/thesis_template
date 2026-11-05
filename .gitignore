@@ -1,11 +1,36 @@
+# LaTeX build artefacts
+build/
+/main.pdf
 *.aux
 *.log
-*.lof
-*.lot
-*.out
-*.toc
-*.synctex.gz
 *.fls
 *.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.out
+*.toc
+*.lof
+*.lot
+*.lol
 *.bbl
 *.blg
+*.bcf
+*.run.xml
+*.xdv
+*.nav
+*.snm
+*.vrb
+
+# Package output
+dist/
+
+# OS and editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+.directory
+*~
+*.swp
+*.swo
+.vscode/
+.idea/

@@ -1,0 +1,22 @@
+% Gambar 6.2 — Perbandingan F1-score antar konfigurasi (vector source, LaTeX-only extension).
+% Width is fixed in centimetres: 0.85 \textwidth of the 14 cm thesis text block.
+\documentclass[12pt,border=0pt,tikz]{standalone}
+\input{tikz-demo}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[
+    ybar, bar width=0.5cm,
+    width=11.9cm, height=6cm,
+    ylabel={F1-score},
+    xtick=data,
+    xticklabels={[Konf A],[Konf B],[Konf C],[Sistem ini]},
+    ymin=0, ymax=1.05,
+    ymajorgrids=true, grid style=dashed,
+    legend pos=north west,
+    tick label style={font=\small},
+    label style={font=\small},
+  ]
+    \addplot coordinates {(0,0.80) (1,0.85) (2,0.88) (3,0.95)};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

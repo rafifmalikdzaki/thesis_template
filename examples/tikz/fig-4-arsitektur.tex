@@ -1,0 +1,18 @@
+% Gambar 4.1 — Arsitektur sistem secara keseluruhan (vector source, LaTeX-only extension).
+\documentclass[12pt,border=0pt,tikz]{standalone}
+\input{tikz-demo}
+\begin{document}
+\begin{tikzpicture}[node distance=1.5cm and 2cm]
+  \node[procplain, fill=cProsesBg, draw=cProses, text width=3cm]
+    (komp1) {Komponen 1};
+  \node[procplain, fill=cDataBg, draw=cData, text width=3cm,
+        right=of komp1]
+    (komp2) {Komponen 2};
+  \node[procplain, fill=cOkBg, draw=cOk, text width=3cm,
+        right=of komp2]
+    (komp3) {Komponen 3};
+
+  \draw[arr] (komp1) -- node[above,font=\scriptsize]{Data} (komp2);
+  \draw[arr] (komp2) -- node[above,font=\scriptsize]{Hasil} (komp3);
+\end{tikzpicture}
+\end{document}

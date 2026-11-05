@@ -1,0 +1,15 @@
+% Gambar 5.1 — Topologi integrasi antar-komponen (vector source, LaTeX-only extension).
+\documentclass[12pt,border=0pt,tikz]{standalone}
+\input{tikz-demo}
+\begin{document}
+\begin{tikzpicture}[node distance=1.2cm and 1.5cm]
+  \node[procplain, fill=cProsesBg, draw=cProses] (a) {[Komponen A]};
+  \node[procplain, fill=cDataBg,   draw=cData,
+        right=of a] (b) {[Broker/\\Queue]};
+  \node[procplain, fill=cOkBg,    draw=cOk,
+        right=of b] (c) {[Komponen C]};
+
+  \draw[arr] (a) -- node[above,font=\scriptsize]{[data]} (b);
+  \draw[arr] (b) -- node[above,font=\scriptsize]{[event]} (c);
+\end{tikzpicture}
+\end{document}

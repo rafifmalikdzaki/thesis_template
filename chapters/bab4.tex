@@ -9,26 +9,12 @@
 
 [Berikan gambaran arsitektur sistem secara keseluruhan. Jelaskan komponen-komponen utama,
 bagaimana komponen-komponen tersebut berinteraksi, dan bagaimana sistem secara keseluruhan
-menjawab rumusan masalah yang ditetapkan.]
+menjawab rumusan masalah yang ditetapkan.] Arsitektur sistem ditunjukkan pada
+Gambar~\ref{fig:4.arsitektur}.
 
 \begin{figure}[H]
   \centering
-  \gambarbesar{%
-    \begin{tikzpicture}[node distance=1.5cm and 2cm]
-      % ── Ganti dengan diagram arsitektur Anda ─────────────────────
-      \node[procplain, fill=cProsesBg, draw=cProses, text width=3cm]
-        (komp1) {Komponen 1};
-      \node[procplain, fill=cDataBg, draw=cData, text width=3cm,
-            right=of komp1]
-        (komp2) {Komponen 2};
-      \node[procplain, fill=cOkBg, draw=cOk, text width=3cm,
-            right=of komp2]
-        (komp3) {Komponen 3};
-
-      \draw[arr] (komp1) -- node[above,font=\scriptsize]{Data} (komp2);
-      \draw[arr] (komp2) -- node[above,font=\scriptsize]{Hasil} (komp3);
-    \end{tikzpicture}
-  }
+  \thesisfigure{\includegraphics{assets/fig-4-arsitektur.pdf}}
   \caption{Arsitektur sistem secara keseluruhan}
   \label{fig:4.arsitektur}
 \end{figure}
@@ -65,36 +51,45 @@ antarmuka (interface), dan keputusan desain yang diambil beserta alasannya.]
 \label{sec:4.5}
 
 [Jelaskan format data yang mengalir antar komponen, skema database (jika ada), format
-file input/output, dan protokol komunikasi antar-komponen.]
+file input/output, dan protokol komunikasi antar-komponen. Contoh format data ditunjukkan
+pada Kode Sumber~\ref{lst:4.format}.]
 
-% Contoh format output JSON
-% \begin{lstlisting}[language=,caption={Format data antar-komponen},label={lst:4.format}]
-% {
-%   "id": "string",
-%   "timestamp": "ISO8601",
-%   "fitur_a": float,
-%   "fitur_b": float,
-%   "label": "string"
-% }
-% \end{lstlisting}
+\begin{lstlisting}[language=, caption={Format data antar-komponen}, label={lst:4.format}]
+{
+  "id": "string",
+  "timestamp": "ISO8601",
+  "fitur_a": float,
+  "fitur_b": float,
+  "label": "string"
+}
+\end{lstlisting}
 
 \section{Rancangan Pengujian}
 \label{sec:4.6}
 
 [Deskripsikan skenario pengujian yang akan dilakukan pada Bab~6. Apa yang akan diuji,
-bagaimana cara mengukurnya, dan kriteria keberhasilan yang ditetapkan.]
+bagaimana cara mengukurnya, dan kriteria keberhasilan yang ditetapkan.] Skenario
+pengujian dirangkum pada Tabel~\ref{tab:4.skenario}.
 
-\begin{table}[H]
-  \centering
+\begin{thesistable}
+\begin{longtable}{@{}c p{3.8cm} p{4.0cm} p{3.6cm}@{}}
   \caption{Skenario pengujian}
-  \label{tab:4.skenario}
-  \begin{tabular}{clll}
-    \toprule
-    \textbf{No.} & \textbf{Skenario} & \textbf{Variabel} & \textbf{Metrik} \\
-    \midrule
-    S1 & [Nama skenario 1] & [Variabel yang diubah] & [Metrik yang diukur] \\
-    S2 & [Nama skenario 2] & [Variabel yang diubah] & [Metrik yang diukur] \\
-    S3 & [Nama skenario 3] & [Variabel yang diubah] & [Metrik yang diukur] \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+  \label{tab:4.skenario}\\
+  \toprule
+  \textbf{No.} & \textbf{Skenario} & \textbf{Variabel} & \textbf{Metrik} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{4}{@{}l}{\footnotesize\itshape Lanjutan Tabel~\thetable}\\
+  \toprule
+  \textbf{No.} & \textbf{Skenario} & \textbf{Variabel} & \textbf{Metrik} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  S1 & [Nama skenario 1] & [Variabel yang diubah] & [Metrik yang diukur] \\
+  S2 & [Nama skenario 2] & [Variabel yang diubah] & [Metrik yang diukur] \\
+  S3 & [Nama skenario 3] & [Variabel yang diubah] & [Metrik yang diukur] \\
+\end{longtable}
+\end{thesistable}

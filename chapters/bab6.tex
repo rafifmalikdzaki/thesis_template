@@ -9,32 +9,11 @@
 
 [Jelaskan prosedur pengujian yang dilaksanakan, mengacu pada rancangan pengujian di
 Seksyen~\ref{sec:4.6}. Uraikan urutan langkah, konfigurasi yang digunakan, dan cara
-hasil dikumpulkan.]
+hasil dikumpulkan.] Alur prosedur pengujian ditunjukkan pada Gambar~\ref{fig:6.alur}.
 
-% Contoh: diagram alur pengujian
 \begin{figure}[H]
   \centering
-  \begin{tikzpicture}[node distance=0.9cm]
-    \node[term]     (mulai)  {Mulai};
-    \node[io]       (setup)  [below=of mulai]  {Inisialisasi lingkungan};
-    \node[proc]     (data)   [below=of setup]  {Muat data uji};
-    \node[proc]     (jalankan)[below=of data]  {Jalankan skenario};
-    \node[io]       (kumpul) [below=of jalankan]{Kumpulkan metrik};
-    \node[dec]      (ulang)  [below=of kumpul] {Semua skenario\\selesai?};
-    \node[proc]     (analisis)[below=of ulang] {Analisis \& visualisasi};
-    \node[term]     (selesai)[below=of analisis]{Selesai};
-    \node[proc]     (iterasi)[right=2cm of ulang]{Skenario\\berikutnya};
-
-    \draw[arr] (mulai)    -- (setup);
-    \draw[arr] (setup)    -- (data);
-    \draw[arr] (data)     -- (jalankan);
-    \draw[arr] (jalankan) -- (kumpul);
-    \draw[arr] (kumpul)   -- (ulang);
-    \draw[arr] (ulang)    -- node[flbl,right]{Ya} (analisis);
-    \draw[arr] (ulang)    -- node[flbl,above]{Tidak} (iterasi);
-    \draw[arr] (iterasi)  |- (data);
-    \draw[arr] (analisis) -- (selesai);
-  \end{tikzpicture}
+  \thesisfigure{\includegraphics{assets/fig-6-alur.pdf}}
   \caption{Alur prosedur pengujian}
   \label{fig:6.alur}
 \end{figure}
@@ -44,43 +23,39 @@ hasil dikumpulkan.]
 \label{sec:6.2}
 
 [Sajikan hasil pengujian skenario pertama. Gunakan tabel untuk angka, grafik untuk tren.
-Deskripsikan temuan secara faktual sebelum memberikan interpretasi.]
+Deskripsikan temuan secara faktual sebelum memberikan interpretasi.] Hasil pada berbagai
+konfigurasi dirangkum pada Tabel~\ref{tab:6.hasil1}.
 
-\begin{table}[H]
-  \centering
+\begin{thesistable}
+\begin{longtable}{@{}l r r r r@{}}
   \caption{Hasil [Aspek Utama 1] pada berbagai konfigurasi}
-  \label{tab:6.hasil1}
-  \begin{tabular}{lrrrr}
-    \toprule
-    \textbf{Konfigurasi} & \textbf{Presisi} & \textbf{Recall} & \textbf{F1} & \textbf{Latensi (ms)} \\
-    \midrule
-    {[Konfigurasi A]} & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
-    {[Konfigurasi B]} & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
-    {[Konfigurasi C]} & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
-    \textbf{Sistem ini} & \textbf{[0,XX]} & \textbf{[0,XX]} & \textbf{[0,XX]} & \textbf{[X,XX]} \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+  \label{tab:6.hasil1}\\
+  \toprule
+  \textbf{Konfigurasi} & \textbf{Presisi} & \textbf{Recall} & \textbf{F1}
+                       & \textbf{Latensi (ms)} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{5}{@{}l}{\footnotesize\itshape Lanjutan Tabel~\thetable}\\
+  \toprule
+  \textbf{Konfigurasi} & \textbf{Presisi} & \textbf{Recall} & \textbf{F1}
+                       & \textbf{Latensi (ms)} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  {[Konfigurasi A]} & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  {[Konfigurasi B]} & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  {[Konfigurasi C]} & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  \textbf{Sistem ini} & \textbf{[0,XX]} & \textbf{[0,XX]} & \textbf{[0,XX]} & \textbf{[X,XX]} \\
+\end{longtable}
+\end{thesistable}
 
-% Contoh grafik pgfplots (bar chart)
+% Contoh grafik batang (aset PDF vektor dari pgfplots).
 \begin{figure}[H]
   \centering
-  \begin{tikzpicture}
-    \begin{axis}[
-      ybar, bar width=0.5cm,
-      width=0.85\textwidth, height=6cm,
-      ylabel={F1-score},
-      xtick=data,
-      xticklabels={[Konf A],[Konf B],[Konf C],[Sistem ini]},
-      ymin=0, ymax=1.05,
-      ymajorgrids=true, grid style=dashed,
-      legend pos=north west,
-      tick label style={font=\small},
-      label style={font=\small},
-    ]
-      \addplot coordinates {(0,0.80) (1,0.85) (2,0.88) (3,0.95)};
-    \end{axis}
-  \end{tikzpicture}
+  \thesisfigure{\includegraphics{assets/fig-6-f1.pdf}}
   \caption{Perbandingan F1-score antar konfigurasi}
   \label{fig:6.f1}
 \end{figure}
@@ -92,35 +67,113 @@ Deskripsikan temuan secara faktual sebelum memberikan interpretasi.]
 \label{sec:6.3}
 
 [Sajikan hasil skenario kedua. Contoh: pengujian skalabilitas, latensi, throughput, dsb.]
+Tren latensi terhadap beban ditunjukkan pada Gambar~\ref{fig:6.latensi}.
 
-% Contoh: grafik garis (latensi vs beban)
 \begin{figure}[H]
   \centering
-  \begin{tikzpicture}
-    \begin{axis}[
-      width=0.85\textwidth, height=6cm,
-      xlabel={Beban (\emph{request/s})},
-      ylabel={Latensi median (ms)},
-      xmin=0, ymin=0,
-      grid=both, grid style={line width=.2pt, draw=gray!30},
-      major grid style={line width=.4pt, draw=gray!60},
-      legend pos=north west,
-      tick label style={font=\small},
-      label style={font=\small},
-    ]
-      \addplot[mark=o, thick] coordinates {
-        (100,1.2) (500,1.5) (1000,2.1) (2000,3.8) (5000,9.5)
-      };
-      \addlegendentry{[Sistem ini]}
-      \addplot[mark=square, thick, dashed] coordinates {
-        (100,2.0) (500,3.2) (1000,5.8) (2000,12.0) (5000,35.0)
-      };
-      \addlegendentry{[Baseline]}
-    \end{axis}
-  \end{tikzpicture}
+  \thesisfigure{\includegraphics{assets/fig-6-latensi.pdf}}
   \caption{Latensi median terhadap beban}
   \label{fig:6.latensi}
 \end{figure}
+
+Hasil setiap pengulangan dicatat pada Tabel~\ref{tab:6.runs}. Tabel ini berlanjut ke
+halaman berikutnya dan blok judul kolomnya diulang pada setiap halaman.
+
+% Tabel multipage: header diulang melalui \endfirsthead dan \endhead.
+\begin{thesistable}
+\begin{longtable}{@{}r p{3.5cm} p{2.8cm} r r r r@{}}
+  \caption{Hasil pengujian per pengulangan}
+  \label{tab:6.runs}\\
+  \toprule
+  \textbf{No.} & \textbf{Skenario} & \textbf{Konfigurasi} & \textbf{Presisi}
+               & \textbf{Recall} & \textbf{F1} & \textbf{Latensi (ms)} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{7}{@{}l}{\footnotesize\itshape Lanjutan Tabel~\thetable}\\
+  \toprule
+  \textbf{No.} & \textbf{Skenario} & \textbf{Konfigurasi} & \textbf{Presisi}
+               & \textbf{Recall} & \textbf{F1} & \textbf{Latensi (ms)} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  1  & [Skenario 1, Run 01] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  2  & [Skenario 1, Run 02] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  3  & [Skenario 1, Run 03] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  4  & [Skenario 1, Run 04] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  5  & [Skenario 1, Run 05] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  6  & [Skenario 1, Run 06] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  7  & [Skenario 1, Run 07] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  8  & [Skenario 1, Run 08] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  9  & [Skenario 1, Run 09] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  10 & [Skenario 1, Run 10] & [Sistem ini]    & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  11 & [Skenario 2, Run 01] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  12 & [Skenario 2, Run 02] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  13 & [Skenario 2, Run 03] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  14 & [Skenario 2, Run 04] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  15 & [Skenario 2, Run 05] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  16 & [Skenario 2, Run 06] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  17 & [Skenario 2, Run 07] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  18 & [Skenario 2, Run 08] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  19 & [Skenario 2, Run 09] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  20 & [Skenario 2, Run 10] & [Sistem ini]    & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  21 & [Skenario 3, Run 01] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  22 & [Skenario 3, Run 02] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  23 & [Skenario 3, Run 03] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  24 & [Skenario 3, Run 04] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  25 & [Skenario 3, Run 05] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  26 & [Skenario 3, Run 06] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  27 & [Skenario 3, Run 07] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  28 & [Skenario 3, Run 08] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  29 & [Skenario 3, Run 09] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  30 & [Skenario 3, Run 10] & [Sistem ini]    & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  31 & [Skenario 4, Run 01] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  32 & [Skenario 4, Run 02] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  33 & [Skenario 4, Run 03] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  34 & [Skenario 4, Run 04] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  35 & [Skenario 4, Run 05] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  36 & [Skenario 4, Run 06] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  37 & [Skenario 4, Run 07] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  38 & [Skenario 4, Run 08] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  39 & [Skenario 4, Run 09] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+  40 & [Skenario 4, Run 10] & [Sistem ini]    & [0,XX] & [0,XX] & [0,XX] & [X,XX] \\
+\end{longtable}
+\end{thesistable}
+
+% Tabel lebar: lingkungan landscape diletakkan di dalam pembungkus yang sama.
+\begin{thesistable}
+\begin{landscape}
+\begin{longtable}{@{}r p{4.5cm} p{3.5cm} r r r r p{4.5cm}@{}}
+  \caption{Rekapitulasi hasil pengujian per skenario dan konfigurasi}
+  \label{tab:6.rekap}\\
+  \toprule
+  \textbf{No.} & \textbf{Skenario} & \textbf{Konfigurasi} & \textbf{Presisi}
+               & \textbf{Recall} & \textbf{F1} & \textbf{Latensi (ms)}
+               & \textbf{Keterangan} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{8}{@{}l}{\footnotesize\itshape Lanjutan Tabel~\thetable}\\
+  \toprule
+  \textbf{No.} & \textbf{Skenario} & \textbf{Konfigurasi} & \textbf{Presisi}
+               & \textbf{Recall} & \textbf{F1} & \textbf{Latensi (ms)}
+               & \textbf{Keterangan} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  1 & [Skenario 1] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] & [Stabil] \\
+  2 & [Skenario 1] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] & [Stabil] \\
+  3 & [Skenario 1] & [Konfigurasi C] & [0,XX] & [0,XX] & [0,XX] & [X,XX] & [Stabil] \\
+  4 & [Skenario 2] & [Konfigurasi A] & [0,XX] & [0,XX] & [0,XX] & [X,XX] & [Bervariasi] \\
+  5 & [Skenario 2] & [Konfigurasi B] & [0,XX] & [0,XX] & [0,XX] & [X,XX] & [Bervariasi] \\
+  6 & [Skenario 2] & [Sistem ini]    & [0,XX] & [0,XX] & [0,XX] & [X,XX] & [Stabil] \\
+\end{longtable}
+\end{landscape}
+\end{thesistable}
 
 % ── 6.4 Analisis Ablasi ──────────────────────────────────────────────
 \section{Analisis Ablasi}
@@ -128,27 +181,34 @@ Deskripsikan temuan secara faktual sebelum memberikan interpretasi.]
 
 [Tunjukkan kontribusi masing-masing komponen/fitur dengan mematikannya satu per satu
 dan mengukur dampak performa. Ini adalah bagian yang membuktikan bahwa setiap pilihan
-desain berkontribusi nyata.]
+desain berkontribusi nyata.] Hasil ablasi dirangkum pada Tabel~\ref{tab:6.ablasi}.
 
-\begin{table}[H]
-  \centering
+\begin{thesistable}
+\begin{longtable}{@{}l c c c r@{}}
   \caption{Hasil ablasi komponen sistem}
-  \label{tab:6.ablasi}
-  \begin{adjustbox}{max width=\textwidth}
-  \begin{tabular}{lcccr}
-    \toprule
-    \textbf{Variasi} & \textbf{[Komponen A]} & \textbf{[Komponen B]} & \textbf{[Komponen C]}
-                     & \textbf{F1} \\
-    \midrule
-    Sistem penuh     & \checkmark & \checkmark & \checkmark & [0,XX] \\
-    Tanpa [Komp C]   & \checkmark & \checkmark & --         & [0,XX] \\
-    Tanpa [Komp B]   & \checkmark & --         & \checkmark & [0,XX] \\
-    Tanpa [Komp A]   & --         & \checkmark & \checkmark & [0,XX] \\
-    \emph{Baseline}  & --         & --         & --         & [0,XX] \\
-    \bottomrule
-  \end{tabular}
-  \end{adjustbox}
-\end{table}
+  \label{tab:6.ablasi}\\
+  \toprule
+  \textbf{Variasi} & \textbf{[Komponen A]} & \textbf{[Komponen B]}
+                   & \textbf{[Komponen C]} & \textbf{F1} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{5}{@{}l}{\footnotesize\itshape Lanjutan Tabel~\thetable}\\
+  \toprule
+  \textbf{Variasi} & \textbf{[Komponen A]} & \textbf{[Komponen B]}
+                   & \textbf{[Komponen C]} & \textbf{F1} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  Sistem penuh     & \checkmark & \checkmark & \checkmark & [0,XX] \\
+  Tanpa [Komp C]   & \checkmark & \checkmark & --         & [0,XX] \\
+  Tanpa [Komp B]   & \checkmark & --         & \checkmark & [0,XX] \\
+  Tanpa [Komp A]   & --         & \checkmark & \checkmark & [0,XX] \\
+  \emph{Baseline}  & --         & --         & --         & [0,XX] \\
+\end{longtable}
+\end{thesistable}
 
 [Diskusi: komponen mana yang paling berkontribusi dan mengapa.]
 
@@ -158,25 +218,33 @@ desain berkontribusi nyata.]
 
 [Bandingkan hasil sistem Anda dengan hasil yang dilaporkan pada penelitian terdahulu
 (Bab~2). Perhatikan: perbandingan yang adil mensyaratkan dataset dan skenario yang sama
-atau setara. Jelaskan keterbatasan perbandingan jika ada.]
+atau setara. Jelaskan keterbatasan perbandingan jika ada.] Perbandingan tersebut
+dirangkum pada Tabel~\ref{tab:6.komparasi}.
 
-\begin{table}[H]
-  \centering
+\begin{thesistable}
+\begin{longtable}{@{}l p{3.2cm} r r r@{}}
   \caption{Perbandingan dengan penelitian terdahulu}
-  \label{tab:6.komparasi}
-  \begin{adjustbox}{max width=\textwidth}
-  \begin{tabular}{lp{2.8cm}rrr}
-    \toprule
-    \textbf{Penelitian} & \textbf{Dataset} & \textbf{F1} & \textbf{Latensi (ms)}
-                        & \textbf{[Metrik lain]} \\
-    \midrule
-    {[Peneliti A, Tahun]} & [Nama dataset] & [0,XX] & [X,X] & [X] \\
-    {[Peneliti B, Tahun]} & [Nama dataset] & [0,XX] & [X,X] & [X] \\
-    \textbf{Penelitian ini} & [Nama dataset] & \textbf{[0,XX]} & \textbf{[X,X]} & \textbf{[X]} \\
-    \bottomrule
-  \end{tabular}
-  \end{adjustbox}
-\end{table}
+  \label{tab:6.komparasi}\\
+  \toprule
+  \textbf{Penelitian} & \textbf{Dataset} & \textbf{F1} & \textbf{Latensi (ms)}
+                      & \textbf{[Metrik lain]} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{5}{@{}l}{\footnotesize\itshape Lanjutan Tabel~\thetable}\\
+  \toprule
+  \textbf{Penelitian} & \textbf{Dataset} & \textbf{F1} & \textbf{Latensi (ms)}
+                      & \textbf{[Metrik lain]} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  {[Peneliti A, Tahun]} & [Nama dataset] & [0,XX] & [X,X] & [X] \\
+  {[Peneliti B, Tahun]} & [Nama dataset] & [0,XX] & [X,X] & [X] \\
+  \textbf{Penelitian ini} & [Nama dataset] & \textbf{[0,XX]} & \textbf{[X,X]} & \textbf{[X]} \\
+\end{longtable}
+\end{thesistable}
 
 % ── 6.6 Diskusi ──────────────────────────────────────────────────────
 \section{Diskusi}

@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build PDF and Overleaf package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live, Poppler and archiving tools
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            latexmk \
+            poppler-utils \
+            texlive-fonts-extra \
+            texlive-fonts-recommended \
+            texlive-lang-other \
+            texlive-latex-extra \
+            texlive-latex-recommended \
+            texlive-science \
+            unzip \
+            zip
+
+      - name: Build main.pdf with latexmk
+        run: bash build.sh
+
+      - name: Check that the build produced a PDF and a clean log
+        run: |
+          test -s main.pdf
+          pdfinfo main.pdf | grep -q '^Pages:'
+          if grep -q '^!' build/main.log; then
+            echo 'LaTeX errors found:'
+            grep -n '^!' build/main.log
+            exit 1
+          fi
+          if grep -qi 'undefined' build/main.log; then
+            echo 'Undefined references found:'
+            grep -in 'undefined' build/main.log
+            exit 1
+          fi
+
+      - name: Package the Overleaf archive and verify the extracted build
+        run: bash scripts/package_overleaf.sh
+
+      - name: Upload main.pdf
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-pdf
+          path: main.pdf
+          if-no-files-found: error
+
+      - name: Upload Overleaf package
+        uses: actions/upload-artifact@v4
+        with:
+          name: overleaf-package
+          path: dist/thesis_template_overleaf.zip
+          if-no-files-found: error

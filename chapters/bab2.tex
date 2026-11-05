@@ -24,27 +24,14 @@ dan relevansinya terhadap penelitian. Sertakan rujukan ke literatur primer.]
 
 [Penjelasan konsep utama ketiga.]
 
-% Contoh persamaan matematis
-% Misalnya: F1-score
+% Contoh persamaan matematis berlabel dan rujukan silang dengan \eqref.
 \begin{equation}
   F_1 = 2 \cdot \frac{\text{Presisi} \times \text{Recall}}{\text{Presisi} + \text{Recall}}
   \label{eq:2.f1}
 \end{equation}
 
-% Contoh tabel perbandingan
-% \begin{table}[H]
-%   \centering
-%   \caption{Perbandingan [hal yang dibandingkan]}
-%   \label{tab:2.perbandingan}
-%   \begin{tabular}{llll}
-%     \toprule
-%     \textbf{Metode} & \textbf{Kelebihan} & \textbf{Kekurangan} & \textbf{Sumber} \\
-%     \midrule
-%     {[Metode A]} & [+] & [-] & [Penulis, Tahun] \\
-%     {[Metode B]} & [+] & [-] & [Penulis, Tahun] \\
-%     \bottomrule
-%   \end{tabular}
-% \end{table}
+Nilai $F_1$ pada Persamaan~\eqref{eq:2.f1} dipakai sebagai salah satu ukuran kinerja
+klasifikasi karena menyeimbangkan presisi dan recall.
 
 % ── 2.2 Penelitian Terdahulu ─────────────────────────────────────────
 \section{Penelitian Terdahulu}
@@ -75,23 +62,30 @@ perbedaannya.]
 Berdasarkan tinjauan terhadap penelitian-penelitian yang telah diuraikan, Tabel~\ref{tab:2.posisi}
 merangkum posisi penelitian ini dibandingkan karya terdahulu.
 
-\begin{table}[H]
-  \centering
+\begin{thesistable}
+\begin{longtable}{@{}p{3.4cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm} p{1.7cm}@{}}
   \caption{Posisi penelitian ini terhadap penelitian terdahulu}
-  \label{tab:2.posisi}
-  \begin{adjustbox}{max width=\textwidth}
-  \begin{tabular}{p{2.9cm} p{1.8cm} p{1.8cm} p{1.8cm} p{1.8cm} p{1.8cm}}
-    \toprule
-    \textbf{Penelitian} & \textbf{[Aspek 1]} & \textbf{[Aspek 2]} & \textbf{[Aspek 3]}
-                        & \textbf{[Aspek 4]} & \textbf{[Aspek 5]} \\
-    \midrule
-    {[Peneliti A, Tahun]} & \checkmark & -- & \checkmark & -- & -- \\
-    {[Peneliti B, Tahun]} & \checkmark & \checkmark & -- & -- & -- \\
-    \textbf{Penelitian ini} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
-    \bottomrule
-  \end{tabular}
-  \end{adjustbox}
-\end{table}
+  \label{tab:2.posisi}\\
+  \toprule
+  \textbf{Penelitian} & \textbf{[Aspek 1]} & \textbf{[Aspek 2]} & \textbf{[Aspek 3]}
+                      & \textbf{[Aspek 4]} & \textbf{[Aspek 5]} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{6}{@{}l}{\footnotesize\itshape Lanjutan Tabel~\thetable}\\
+  \toprule
+  \textbf{Penelitian} & \textbf{[Aspek 1]} & \textbf{[Aspek 2]} & \textbf{[Aspek 3]}
+                      & \textbf{[Aspek 4]} & \textbf{[Aspek 5]} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  {[Peneliti A, Tahun]} & \checkmark & -- & \checkmark & -- & -- \\
+  {[Peneliti B, Tahun]} & \checkmark & \checkmark & -- & -- & -- \\
+  \textbf{Penelitian ini} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\end{longtable}
+\end{thesistable}
 
 [Paragraf yang menjelaskan kebaruan (\emph{novelty}) penelitian ini berdasarkan tabel di atas.
 Apa yang belum dilakukan orang lain dan yang Anda lakukan?]
